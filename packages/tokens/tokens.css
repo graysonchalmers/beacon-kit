@@ -29,7 +29,7 @@
   --bk-ok:#3cff7a; --bk-warn:#e6ff3c; --bk-danger:#ff4f4f;
   --bk-font:ui-monospace, "Cascadia Code", Menlo, monospace; --bk-radius:0px;
 }
-[data-skin="swamp"] {   /* old Beacon swamp skin tokens (Util-VoiceServer skins/swamp/skin.css); the 9-slice frames are a later step */
+[data-skin="swamp"] {   /* old Beacon swamp skin tokens (Util-VoiceServer skins/swamp/skin.css); surface art in skins/swamp/swamp.css */
   --bk-bg:#172019; --bk-card:#24342a; --bk-raise:#211810; --bk-line:#3e5e2e;
   --bk-fg:#f4f0de; --bk-muted:#b8a888; --bk-accent:#8db04e; --bk-on-accent:#f4f0de;
   --bk-ok:#8db04e; --bk-warn:#ffc860; --bk-danger:#e06a4f;

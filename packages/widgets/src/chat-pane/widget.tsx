@@ -25,7 +25,7 @@ function Pane({ initial }: { initial: Msg[] }) {
       </ol>
       <form onSubmit={send} className="flex gap-1">
         <input name="m" aria-label="Message" placeholder="Message…" className="min-w-0 flex-1 rounded border border-bk-line bg-bk-bg px-2 py-1 text-sm text-bk-fg outline-none focus-visible:ring-2 focus-visible:ring-bk-accent" />
-        <button className="rounded bg-bk-raise px-2 text-sm text-bk-fg focus-visible:ring-2 focus-visible:ring-bk-accent">Send</button>
+        <button data-primary className="rounded bg-bk-raise px-2 text-sm text-bk-fg focus-visible:ring-2 focus-visible:ring-bk-accent">Send</button>
       </form>
     </div>
   );

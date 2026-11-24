@@ -18,7 +18,7 @@ Every kit widget uses semantic tokens only, so all of them work in every skin (S
 | `media` | `media-viewer` | ✅ |
 | `scene` | `scene-3d` | ✅ |
 | `ask`, `boss` | `chat-pane` | ✅ |
-| `calendar`, `mail`, `notion`, `replies`, `decisions`, `favorites`, `projects`, `archived` | `item-list` (data adapter per source) | 🟨 widget ✅, adapters not wired |
+| `calendar`, `mail`, `notion`, `replies`, `decisions`, `docs`, `iso`, `tile` | per-card widgets, fed by `packages/adapter` (voice.py /state + endpoints) | ✅ adapter (fixture-verified; live run on Envy next) |
 | `devstream`, `ytplaylists` | `media-grid` | ✅ |
 | `spotify` | `player` | ✅ |
 | `radar` | `radar-map` | ✅ (image layers; old MRMS QC / hillshade stays server-side) |

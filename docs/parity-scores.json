@@ -1,0 +1,152 @@
+[
+ {
+  "oldF": "kit--sandbox-kit.png",
+  "id": "widgets-2d-backpack--parity",
+  "diff": 6.3,
+  "size": "615x570 vs 614x570"
+ },
+ {
+  "oldF": "radar--sandbox-radar.png",
+  "id": "widgets-2d-radar--parity",
+  "diff": 2.3,
+  "size": "300x320 vs 300x320"
+ },
+ {
+  "oldF": "ask--sandbox-ask.png",
+  "id": "widgets-chat-ask--parity",
+  "diff": 3.3,
+  "size": "300x199 vs 299x199"
+ },
+ {
+  "oldF": "boss--sandbox-boss.png",
+  "id": "widgets-chat-boss--parity",
+  "diff": 2.6,
+  "size": "615x570 vs 614x570"
+ },
+ {
+  "oldF": "countdown--sandbox-countdown.png",
+  "id": "widgets-data-countdown--parity",
+  "diff": 5.8,
+  "size": "300x98 vs 299x98"
+ },
+ {
+  "oldF": "fleet--sandbox-fleet.png",
+  "id": "widgets-data-fleet--parity",
+  "diff": 2.6,
+  "size": "930x380 vs 930x380"
+ },
+ {
+  "oldF": "gauge--sandbox-gauge.png",
+  "id": "widgets-data-gauge--parity",
+  "diff": 2.4,
+  "size": "300x277 vs 299x277"
+ },
+ {
+  "oldF": "mesh--sandbox-mesh.png",
+  "id": "widgets-data-mesh--parity",
+  "diff": 3.3,
+  "size": "300x361 vs 299x361"
+ },
+ {
+  "oldF": "quotas--sandbox-quotas.png",
+  "id": "widgets-data-quotas--parity",
+  "diff": 7,
+  "size": "300x364 vs 299x364"
+ },
+ {
+  "oldF": "sysscope--sandbox-sysscope.png",
+  "id": "widgets-data-sysscope--parity",
+  "diff": 2.4,
+  "size": "300x602 vs 299x602"
+ },
+ {
+  "oldF": "checklist--sandbox-checklist.png",
+  "id": "widgets-input-checklist--parity",
+  "diff": 4.1,
+  "size": "300x166 vs 299x166"
+ },
+ {
+  "oldF": "counter--sandbox-counter.png",
+  "id": "widgets-input-counter--parity",
+  "diff": 2.7,
+  "size": "300x142 vs 299x142"
+ },
+ {
+  "oldF": "decisions--sandbox-decisions.png",
+  "id": "widgets-input-decisionqueue--parity",
+  "diff": 7.9,
+  "size": "300x602 vs 300x602"
+ },
+ {
+  "oldF": "notion--sandbox-notion.png",
+  "id": "widgets-input-decisionqueue--parity-notion",
+  "diff": 8,
+  "size": "300x602 vs 300x602"
+ },
+ {
+  "oldF": "tile--sandbox-tile.png",
+  "id": "widgets-input-dice--parity",
+  "diff": 2.2,
+  "size": "300x129 vs 299x151"
+ },
+ {
+  "oldF": "calendar--sandbox-calendar.png",
+  "id": "widgets-list-agenda--parity",
+  "diff": 5.2,
+  "size": "300x279 vs 299x279"
+ },
+ {
+  "oldF": "docs--sandbox-docs.png",
+  "id": "widgets-list-docs--parity",
+  "diff": 6.6,
+  "size": "615x570 vs 614x570"
+ },
+ {
+  "oldF": "favorites--sandbox-favorites.png",
+  "id": "widgets-list-favorites--parity",
+  "diff": 6.4,
+  "size": "615x570 vs 614x570"
+ },
+ {
+  "oldF": "mail--sandbox-mail.png",
+  "id": "widgets-list-inbox--parity",
+  "diff": 2.2,
+  "size": "615x380 vs 614x380"
+ },
+ {
+  "oldF": "projects--sandbox-projects.png",
+  "id": "widgets-list-projects--parity",
+  "diff": 4.7,
+  "size": "300x186 vs 299x185"
+ },
+ {
+  "oldF": "replies--sandbox-replies.png",
+  "id": "widgets-list-reply-queue--parity",
+  "diff": 3.6,
+  "size": "615x380 vs 614x380"
+ },
+ {
+  "oldF": "devstream--sandbox-devstream.png",
+  "id": "widgets-media-devstream--parity",
+  "diff": 0.8,
+  "size": "615x380 vs 614x380"
+ },
+ {
+  "oldF": "markdown--sandbox-markdown.png",
+  "id": "widgets-media-markdown-note--parity",
+  "diff": 0.8,
+  "size": "615x570 vs 614x570"
+ },
+ {
+  "oldF": "spotify--sandbox-spotify.png",
+  "id": "widgets-media-spotify--parity",
+  "diff": 4.8,
+  "size": "300x89 vs 299x89"
+ },
+ {
+  "oldF": "ytplaylists--sandbox-ytplaylists.png",
+  "id": "widgets-media-youtube--parity",
+  "diff": 5.3,
+  "size": "300x357 vs 299x357"
+ }
+]

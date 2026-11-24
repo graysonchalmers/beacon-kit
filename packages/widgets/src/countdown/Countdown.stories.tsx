@@ -10,3 +10,7 @@ export const Ready: S = { args: { state: "ready", data: { endsAt: 1764000000000 
 export const Loading: S = { args: { state: "loading" } };
 export const Empty: S = { args: { state: "empty" } };
 export const Error: S = { args: { state: "error" } };
+// Old Sandbox "countdown" sample: "Tea steeping", 3:52 left, ends 9:23 AM (local time).
+const end = new Date(2026, 10, 24, 9, 23).getTime();
+export const Parity: S = { args: { state: "ready", options: { label: "Tea steeping" }, data: { endsAt: end, now: end - 232000 } },
+  decorators: [(St) => <div data-skin="beacon" style={{ width: 299, height: 98 }}><St /></div>] };

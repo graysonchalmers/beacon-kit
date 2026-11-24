@@ -6,7 +6,7 @@
   --bk-fg:#eceae6; --bk-muted:#98948d; --bk-accent:#6aa0ff; --bk-on-accent:#0d1420;
   --bk-ok:#3ccf7f; --bk-warn:#e6b14a; --bk-danger:#ff6b61;
   --bk-font:system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; --bk-radius:12px;
-  --bk-title-size:15px; --bk-title-weight:700; --bk-title-case:none; --bk-title-track:.005em; --bk-title-color:var(--bk-fg);
+  --bk-card-pad:12px; --bk-title-size:15px; --bk-title-weight:700; --bk-title-case:none; --bk-title-track:.005em; --bk-title-color:var(--bk-fg);
   --bk-space-1:4px; --bk-space-2:8px; --bk-space-3:12px;
 }
 [data-skin="ember"] {
@@ -36,5 +36,5 @@
   --bk-font:"Fira Sans", "Trebuchet MS", system-ui, sans-serif; --bk-radius:0px;
 }
 [data-skin] { --bk-title-size:12px; --bk-title-weight:500; --bk-title-case:uppercase; --bk-title-track:.05em; --bk-title-color:var(--bk-muted); }
-[data-skin="beacon"], [data-skin="swamp"] { --bk-title-size:15px; --bk-title-weight:700; --bk-title-case:none; --bk-title-track:.005em; --bk-title-color:var(--bk-fg); }
+[data-skin="beacon"], [data-skin="swamp"] { --bk-card-pad:12px; --bk-title-size:15px; --bk-title-weight:700; --bk-title-case:none; --bk-title-track:.005em; --bk-title-color:var(--bk-fg); }
 [data-skin] { background: var(--bk-bg); color: var(--bk-fg); font-family: var(--bk-font); }

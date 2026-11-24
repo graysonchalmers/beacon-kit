@@ -1,0 +1,148 @@
+{
+ "frames": {
+  "frog_think_0": {
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 26,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 26,
+    "h": 32
+   },
+   "sourceSize": {
+    "w": 26,
+    "h": 32
+   },
+   "duration": 250
+  },
+  "frog_think_1": {
+   "frame": {
+    "x": 26,
+    "y": 0,
+    "w": 26,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 26,
+    "h": 32
+   },
+   "sourceSize": {
+    "w": 26,
+    "h": 32
+   },
+   "duration": 250
+  },
+  "frog_think_2": {
+   "frame": {
+    "x": 52,
+    "y": 0,
+    "w": 26,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 26,
+    "h": 32
+   },
+   "sourceSize": {
+    "w": 26,
+    "h": 32
+   },
+   "duration": 250
+  },
+  "frog_think_3": {
+   "frame": {
+    "x": 78,
+    "y": 0,
+    "w": 26,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 26,
+    "h": 32
+   },
+   "sourceSize": {
+    "w": 26,
+    "h": 32
+   },
+   "duration": 250
+  },
+  "frog_think_4": {
+   "frame": {
+    "x": 104,
+    "y": 0,
+    "w": 26,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 26,
+    "h": 32
+   },
+   "sourceSize": {
+    "w": 26,
+    "h": 32
+   },
+   "duration": 250
+  },
+  "frog_think_5": {
+   "frame": {
+    "x": 130,
+    "y": 0,
+    "w": 26,
+    "h": 32
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 26,
+    "h": 32
+   },
+   "sourceSize": {
+    "w": 26,
+    "h": 32
+   },
+   "duration": 250
+  }
+ },
+ "meta": {
+  "app": "pxl",
+  "image": "frog_think.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 156,
+   "h": 32
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "frog_think",
+    "from": 0,
+    "to": 5,
+    "direction": "forward"
+   }
+  ]
+ }
+}

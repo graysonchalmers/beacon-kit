@@ -7,12 +7,12 @@ import type { z } from "zod";
 
 type B = z.infer<typeof Board>;
 type Live = Record<number, { data?: unknown; state?: WidgetState }>;
-const SKINS = ["ember", "paper", "terminal", "swamp"];
+const SKINS = ["beacon", "ember", "paper", "terminal", "swamp"];
 const btn = "rounded-[var(--bk-radius)] border border-bk-line bg-bk-card px-3 py-1.5 text-sm text-bk-fg hover:bg-bk-raise aria-pressed:bg-bk-accent aria-pressed:text-bk-on-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-bk-accent";
 
 /** The old Beacon header, as a kit shell: Arrange, Add a card, Archive (card ⋯), Focus (F, ←/→), and the skin picker.
  *  Holds board JSON in state; a host persists it through onChange. Skin only changes the surface (STANDARDS rule 11). */
-export function BoardShell({ board: initial, data = {}, skin: skin0 = "ember", onChange }: { board: B; data?: Live; skin?: string; onChange?: (b: B) => void }) {
+export function BoardShell({ board: initial, data = {}, skin: skin0 = "beacon", onChange }: { board: B; data?: Live; skin?: string; onChange?: (b: B) => void }) {
   const [board, setBoard] = useState(initial);
   const [live, setLive] = useState<Live>(data);
   const [archived, setArchived] = useState<{ card: B["cards"][number]; live: Live[number] }[]>([]);

@@ -10,3 +10,6 @@ export const Ready: S = { args: { state: "ready", data: { text: "# Next up\n- Po
 export const Loading: S = { args: { state: "loading" } };
 export const Empty: S = { args: { state: "empty" } };
 export const Error: S = { args: { state: "error" } };
+// Old Sandbox "markdown" sample.
+export const Parity: S = { args: { state: "ready", options: { label: "To the cabin" }, data: { text: "**I-90 W**, exit 12\n1. Left at the gas station\n2. Gravel road 3 mi" } },
+  decorators: [(St) => <div data-skin="beacon" style={{ width: 614, height: 570 }}><St /></div>] };

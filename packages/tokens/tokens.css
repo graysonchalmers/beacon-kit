@@ -1,11 +1,21 @@
 /* Skins. Widgets only use these semantic tokens, so a skin changes the look, never the information.
    Apply with data-skin="<name>" on any wrapper (a whole app, a board, or one card). */
-:root, [data-skin="ember"] {
+/* beacon = the old Beacon dashboard's look (Util-VoiceServer view.html dark tokens). The default. */
+:root, [data-skin="beacon"] {
+  --bk-bg:#101112; --bk-card:#18191b; --bk-raise:#232427; --bk-line:#2a2b2e;
+  --bk-fg:#eceae6; --bk-muted:#98948d; --bk-accent:#6aa0ff; --bk-on-accent:#0d1420;
+  --bk-ok:#3ccf7f; --bk-warn:#e6b14a; --bk-danger:#ff6b61;
+  --bk-font:system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; --bk-radius:12px;
+  --bk-card-pad:12px; --bk-title-size:15px; --bk-title-weight:700; --bk-title-case:none; --bk-title-track:.005em; --bk-title-color:var(--bk-fg);
+  --bk-space-1:4px; --bk-space-2:8px; --bk-space-3:12px;
+}
+[data-skin="ember"] {
   --bk-bg:#0f1115; --bk-card:#181b22; --bk-raise:#262a33; --bk-line:#ffffff14;
   --bk-fg:#e8eaed; --bk-muted:#8a919c; --bk-accent:#ffb020; --bk-on-accent:#0f1115;
   --bk-ok:#34d399; --bk-warn:#ffb020; --bk-danger:#f87171;
   --bk-font:ui-sans-serif, system-ui, sans-serif; --bk-radius:10px;
   --bk-space-1:4px; --bk-space-2:8px; --bk-space-3:12px;
+  --bk-title-size:12px; --bk-title-weight:500; --bk-title-case:uppercase; --bk-title-track:.05em; --bk-title-color:var(--bk-muted);
 }
 [data-skin="paper"] {
   --bk-bg:#f4f1ea; --bk-card:#fffdf8; --bk-raise:#ebe6da; --bk-line:#00000017;
@@ -19,10 +29,12 @@
   --bk-ok:#3cff7a; --bk-warn:#e6ff3c; --bk-danger:#ff4f4f;
   --bk-font:ui-monospace, "Cascadia Code", Menlo, monospace; --bk-radius:0px;
 }
-[data-skin="swamp"] {   /* the old Beacon kitscreen / gamekit look: swamp green, parchment, wood */
-  --bk-bg:#141a0f; --bk-card:#1e2416; --bk-raise:#2c3520; --bk-line:#ccad8440;
-  --bk-fg:#f4f0de; --bk-muted:#ccad84; --bk-accent:#9fd356; --bk-on-accent:#141a0f;
-  --bk-ok:#9fd356; --bk-warn:#e8963a; --bk-danger:#e8503a;
-  --bk-font:"Trebuchet MS", "Segoe UI", sans-serif; --bk-radius:14px;
+[data-skin="swamp"] {   /* old Beacon swamp skin tokens (Util-VoiceServer skins/swamp/skin.css); the 9-slice frames are a later step */
+  --bk-bg:#172019; --bk-card:#24342a; --bk-raise:#211810; --bk-line:#3e5e2e;
+  --bk-fg:#f4f0de; --bk-muted:#b8a888; --bk-accent:#8db04e; --bk-on-accent:#f4f0de;
+  --bk-ok:#8db04e; --bk-warn:#ffc860; --bk-danger:#e06a4f;
+  --bk-font:"Fira Sans", "Trebuchet MS", system-ui, sans-serif; --bk-radius:0px;
 }
+[data-skin] { --bk-title-size:12px; --bk-title-weight:500; --bk-title-case:uppercase; --bk-title-track:.05em; --bk-title-color:var(--bk-muted); }
+[data-skin="beacon"], [data-skin="swamp"] { --bk-card-pad:12px; --bk-title-size:15px; --bk-title-weight:700; --bk-title-case:none; --bk-title-track:.005em; --bk-title-color:var(--bk-fg); }
 [data-skin] { background: var(--bk-bg); color: var(--bk-fg); font-family: var(--bk-font); }

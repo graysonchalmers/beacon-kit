@@ -36,7 +36,7 @@ export const BadCards: StoryObj<typeof BoardView> = { args: { board: { board: "b
 export const Skins: StoryObj<typeof BoardView> = {
   render: () => (
     <div className="flex flex-col gap-6">
-      {["ember", "paper", "terminal", "swamp"].map((s) => (
+      {["beacon", "ember", "paper", "terminal", "swamp"].map((s) => (
         <div key={s} data-skin={s} className="rounded-[var(--bk-radius)] p-3">
           <p className="px-3 text-xs uppercase tracking-widest text-bk-muted">skin: {s}</p>
           <BoardView board={board} data={data} />

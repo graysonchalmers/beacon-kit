@@ -1,0 +1,4 @@
+// Offline sample assets so stories and snapshots never hit the network.
+const svg = (s: string) => `data:image/svg+xml;utf8,${encodeURIComponent(s)}`;
+export const cutoutSrc = svg(`<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160"><g fill="#ffb020"><circle cx="80" cy="60" r="34"/><path d="M30 150c4-40 26-58 50-58s46 18 50 58z"/></g><circle cx="68" cy="56" r="5" fill="#0f1115"/><circle cx="92" cy="56" r="5" fill="#0f1115"/></svg>`);
+export const photoSrc = svg(`<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b3a67"/><stop offset="1" stop-color="#ffb020"/></linearGradient></defs><rect width="640" height="360" fill="url(#g)"/><path d="M0 300 L160 180 L280 260 L420 140 L640 300 V360 H0z" fill="#0f1115"/><circle cx="500" cy="90" r="36" fill="#e8eaed"/></svg>`);

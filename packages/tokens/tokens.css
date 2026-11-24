@@ -19,4 +19,10 @@
   --bk-ok:#3cff7a; --bk-warn:#e6ff3c; --bk-danger:#ff4f4f;
   --bk-font:ui-monospace, "Cascadia Code", Menlo, monospace; --bk-radius:0px;
 }
+[data-skin="swamp"] {   /* the old Beacon kitscreen / gamekit look: swamp green, parchment, wood */
+  --bk-bg:#141a0f; --bk-card:#1e2416; --bk-raise:#2c3520; --bk-line:#ccad8440;
+  --bk-fg:#f4f0de; --bk-muted:#ccad84; --bk-accent:#9fd356; --bk-on-accent:#141a0f;
+  --bk-ok:#9fd356; --bk-warn:#e8963a; --bk-danger:#e8503a;
+  --bk-font:"Trebuchet MS", "Segoe UI", sans-serif; --bk-radius:14px;
+}
 [data-skin] { background: var(--bk-bg); color: var(--bk-fg); font-family: var(--bk-font); }

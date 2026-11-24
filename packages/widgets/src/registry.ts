@@ -13,9 +13,14 @@ import { Checklist } from "./checklist/widget";
 import { Counter } from "./counter/widget";
 import { Markdown } from "./markdown/widget";
 import { EmbedFrame } from "./embed-frame/widget";
+import { Player } from "./player/widget";
+import { RadarMap } from "./radar-map/widget";
+import { IsoScene } from "./iso-scene/widget";
+import { MediaGrid } from "./media-grid/widget";
 
 /** One entry per widget. Check here before building anything new (STANDARDS rule 1). */
 const all = [StatTile, Sparkline, ItemList, Cutout2D, Scene3D, MediaViewer, ZodForm, ChatPane,
-  Gauge, MeterRows, Countdown, Checklist, Counter, Markdown, EmbedFrame] as const;
+  Gauge, MeterRows, Countdown, Checklist, Counter, Markdown, EmbedFrame,
+  Player, RadarMap, IsoScene, MediaGrid] as const;
 export const registry = Object.fromEntries(all.map((w) => [w.type, w])) as Record<(typeof all)[number]["type"], (typeof all)[number]>;
 export type WidgetType = keyof typeof registry;

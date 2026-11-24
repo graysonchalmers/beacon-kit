@@ -23,12 +23,13 @@ function useBox() {
 function Canvas({ src, label }: { src: string; label: string }) {
   const img = useImg(src);
   const [ref, box] = useBox();
+  const line = ref.current ? getComputedStyle(ref.current).getPropertyValue("--bk-raise").trim() || "transparent" : "transparent";
   const scale = img ? Math.min(box.w / img.width, box.h / img.height) * 0.9 : 1;
   return (
     <div ref={ref} className="h-full min-h-28 w-full" role="img" aria-label={`${label} cutout, drag to move`}>
       <Stage width={box.w} height={box.h}>
         <Layer>
-          <Rect width={box.w} height={box.h} fill="rgba(255,255,255,0.03)" cornerRadius={6} />
+          <Rect width={box.w} height={box.h} fill={line} cornerRadius={6} />
           {img && <KImage image={img} draggable scaleX={scale} scaleY={scale}
             x={(box.w - img.width * scale) / 2} y={(box.h - img.height * scale) / 2} />}
         </Layer>

@@ -16,6 +16,7 @@ Full spec: https://claude.ai/artifact/3rcZreriGBwHEUhS8kYdAm
 8. **Data outside the view:** `fetch` gets data, `render` stays pure.
 9. **Prove it:** story + visual snapshot + Playwright at phone and desktop before merge.
 10. **One folder per widget:** `widget.tsx`, `*.stories.tsx`, `README.md`.
+11. **Skins are the surface, not the substance:** a skin (`data-skin` in `packages/tokens/tokens.css`) may change color, font, radius and spacing only. It never changes what a widget shows or does. Widgets use semantic tokens (`bk-card`, `bk-raise`, `bk-line`, `bk-ok`, `bk-warn`, `bk-danger`, `bk-accent`, `bk-on-accent`) and never raw colors, so every widget works in every skin. New skin = one CSS block that sets every `--bk-*` token; check it in the **Boards/Demo → Skins** story.
 
 ## Planned stack
 TypeScript, React, Vite, shadcn/ui + Tailwind, Tremor/Recharts, react-three-fiber, react-konva, TanStack Table/Query, react-grid-layout, Zustand, Zod, Storybook, Vitest, Playwright. pnpm workspaces.

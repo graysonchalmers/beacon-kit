@@ -9,7 +9,7 @@ const Grid = WidthProvider(Responsive);
 type Card = { options: Record<string, unknown>; data?: unknown; state?: WidgetState };
 
 function ErrorCard({ msg }: { msg: string }) {
-  return <div role="alert" className="h-full rounded-[var(--bk-radius)] border border-red-400/30 bg-bk-card p-4 text-sm text-red-400">{msg}</div>;
+  return <div role="alert" className="h-full rounded-[var(--bk-radius)] border border-bk-danger bg-bk-card p-4 text-sm text-bk-danger">{msg}</div>;
 }
 
 // Phone: one column, cards in reading order (top-to-bottom, left-to-right).

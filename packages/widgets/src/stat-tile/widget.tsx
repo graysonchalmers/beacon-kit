@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { defineWidget } from "../contract";
 
-const card = "h-full w-full min-w-56 rounded-[var(--bk-radius)] bg-bk-card p-4 border border-white/5";
+const card = "h-full w-full min-w-56 rounded-[var(--bk-radius)] bg-bk-card p-4 border border-bk-line";
 
 export const StatTile = defineWidget({
   type: "stat-tile",
@@ -13,9 +13,9 @@ export const StatTile = defineWidget({
   render: ({ options, data, state }) => {
     const label = <div className="text-xs uppercase tracking-wide text-bk-muted">{options.label}</div>;
     if (state === "loading")
-      return <div className={card} aria-busy="true">{label}<div className="mt-2 h-8 w-24 animate-pulse rounded bg-white/10" /></div>;
+      return <div className={card} aria-busy="true">{label}<div className="mt-2 h-8 w-24 animate-pulse rounded bg-bk-raise" /></div>;
     if (state === "error")
-      return <div className={card} role="alert">{label}<div className="mt-2 text-sm text-red-400">Couldn't load data</div></div>;
+      return <div className={card} role="alert">{label}<div className="mt-2 text-sm text-bk-danger">Couldn't load data</div></div>;
     if (state === "empty" || !data)
       return <div className={card}>{label}<div className="mt-2 text-sm text-bk-muted">No data yet</div></div>;
     const up = (data.delta ?? 0) >= 0;
@@ -26,7 +26,7 @@ export const StatTile = defineWidget({
           {data.value}<span className="ml-1 text-base text-bk-muted">{options.unit}</span>
         </div>
         {data.delta !== undefined && (
-          <div className={`mt-1 text-sm ${up ? "text-emerald-400" : "text-bk-accent"}`}>{up ? "▲" : "▼"} {Math.abs(data.delta)}</div>
+          <div className={`mt-1 text-sm ${up ? "text-bk-ok" : "text-bk-accent"}`}>{up ? "▲" : "▼"} {Math.abs(data.delta)}</div>
         )}
       </div>
     );

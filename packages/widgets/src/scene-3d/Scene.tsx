@@ -1,5 +1,5 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Mesh } from "three";
 
 const reduced = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
@@ -17,12 +17,17 @@ function Shape({ shape, color }: { shape: "box" | "torus" | "sphere"; color: str
   );
 }
 
-export default function Scene({ shape, color }: { shape: "box" | "torus" | "sphere"; color: string }) {
+export default function Scene({ shape, color }: { shape: "box" | "torus" | "sphere"; color?: string }) {
+  const [accent, setAccent] = useState("#888");
+  const probe = useRef<HTMLDivElement>(null);
+  useEffect(() => { if (probe.current) setAccent(getComputedStyle(probe.current).getPropertyValue("--bk-accent").trim() || "#888"); });
   return (
+    <div ref={probe} className="h-full w-full">
     <Canvas camera={{ position: [0, 0, 4] }} gl={{ preserveDrawingBuffer: true }} frameloop={reduced ? "demand" : "always"}>
       <ambientLight intensity={0.4} />
       <directionalLight position={[3, 3, 3]} intensity={1.5} />
-      <Shape shape={shape} color={color} />
+      <Shape shape={shape} color={color ?? accent} />
     </Canvas>
+    </div>
   );
 }

@@ -33,7 +33,7 @@ export function schemaFrom(fields: Field[]) {
   return z.object(shape);
 }
 
-const input = "w-full rounded border border-white/10 bg-bk-bg px-2 py-1 text-sm text-bk-fg outline-none focus-visible:ring-2 focus-visible:ring-bk-accent";
+const input = "w-full rounded border border-bk-line bg-bk-bg px-2 py-1 text-sm text-bk-fg outline-none focus-visible:ring-2 focus-visible:ring-bk-accent";
 
 function Form({ fields, submitLabel }: { fields: Field[]; submitLabel: string }) {
   const schema = useMemo(() => schemaFrom(fields), [fields]);
@@ -54,11 +54,11 @@ function Form({ fields, submitLabel }: { fields: Field[]; submitLabel: string })
           {f.kind === "select"
             ? <select name={f.name} className={input} aria-invalid={!!errors[f.name]}>{f.choices?.map((c) => <option key={c}>{c}</option>)}</select>
             : <input name={f.name} type={f.kind} className={input} aria-invalid={!!errors[f.name]} />}
-          {errors[f.name] && <span className="text-red-400">{errors[f.name]}</span>}
+          {errors[f.name] && <span className="text-bk-danger">{errors[f.name]}</span>}
         </label>
       ))}
-      <button className="self-start rounded bg-bk-accent px-3 py-1 text-sm font-medium text-bk-bg focus-visible:ring-2 focus-visible:ring-bk-fg">{submitLabel}</button>
-      {done && <p role="status" className="text-xs text-emerald-400">Saved ✓</p>}
+      <button className="self-start rounded bg-bk-accent px-3 py-1 text-sm font-medium text-bk-on-accent focus-visible:ring-2 focus-visible:ring-bk-fg">{submitLabel}</button>
+      {done && <p role="status" className="text-xs text-bk-ok">Saved ✓</p>}
     </form>
   );
 }

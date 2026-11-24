@@ -1,5 +1,9 @@
 @import "tailwindcss";
 @import "./tokens.css";
-@theme { --color-bk-bg: var(--bk-bg); --color-bk-fg: var(--bk-fg); --color-bk-accent: var(--bk-accent); --color-bk-muted: var(--bk-muted); --color-bk-card:#181b22; }
-body { background: var(--bk-bg); color: var(--bk-fg); font-family: ui-sans-serif, system-ui, sans-serif; }
+@theme inline {
+  --color-bk-bg: var(--bk-bg); --color-bk-card: var(--bk-card); --color-bk-raise: var(--bk-raise); --color-bk-line: var(--bk-line);
+  --color-bk-fg: var(--bk-fg); --color-bk-muted: var(--bk-muted); --color-bk-accent: var(--bk-accent); --color-bk-on-accent: var(--bk-on-accent);
+  --color-bk-ok: var(--bk-ok); --color-bk-warn: var(--bk-warn); --color-bk-danger: var(--bk-danger);
+}
+body { background: var(--bk-bg); color: var(--bk-fg); font-family: var(--bk-font); }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }

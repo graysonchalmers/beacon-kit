@@ -22,7 +22,7 @@ const gb = (mb?: number | null) => mb == null ? "–" : (mb / 1024).toFixed(1) +
 
 export const Mesh = defineWidget({
   type: "mesh", family: "data", title: "Mesh",
-  options: z.object({ label: z.string().default("Mesh"), icon: z.string().default("🖥️") }),
+  options: z.object({ label: z.string().default("Mesh"), icon: z.string().default("host") }),
   data: Data,
   size: { min: [2, 2], default: [3, 4], max: [6, 4] },
   render: function MeshView({ options, data: d, state, size }) {
@@ -44,14 +44,14 @@ export const Mesh = defineWidget({
       const o = d.overnight ?? {}, ok = o.result === "success" && !o.fails?.length, running = o.state === "activating";
       body = (
         <div className="grid h-full content-start gap-1.5 overflow-auto text-[13px] font-medium leading-[1.35] [grid-template-columns:repeat(auto-fit,minmax(230px,1fr))]">
-          <section className="min-w-0 px-0.5 py-1">{H4("🖥️", "Machines")}
+          <section className="min-w-0 px-0.5 py-1">{H4("host", "Machines")}
             {d.machines.map((m) => { const n = NAME[m.name] ?? m.name;
               return row(m.level ?? "", `${n} ${m.down.length ? "down: " + m.down.join(", ") : "up"}`,
                 <>{n} {m.down.length ? "· " + (m.down.length === m.checks ? "down" : `${m.down.length} of ${m.checks} down`) : ""}</>,
                 [...m.down, m.recovered ? "auto-restart " + m.recovered : ""].filter(Boolean).map((t, i) => <div key={i}>{t}</div>)); })}
             {d.harbor && !compact && <Mx>Harbor's off-site check {d.harbor.at}: down {d.harbor.down}</Mx>}
           </section>
-          <section className="min-w-0 px-0.5 py-1">{H4("🎛️", "Load")}
+          <section className="min-w-0 px-0.5 py-1">{H4("gauge", "Load")}
             {Object.entries(d.load ?? {}).map(([h, l]) => { const lc = l.load1 / (l.cpus || 1), n = NAME[h] ?? h;
               const lvl: Lv = lc >= 1.5 || l.free_mb < 1500 ? "bad" : lc >= 1 || l.free_mb < 3000 ? "warn" : "";
               const pct = Math.round(Math.max(Math.min(lc / 2, 1), Math.min(Math.max((6000 - l.free_mb) / 4500, 0), 1)) * 100);
@@ -73,7 +73,7 @@ export const Mesh = defineWidget({
         </div>);
     }
     return (
-      <Frame title={options.label ?? "Mesh"} icon={options.icon ?? "🖥️"} empty="Reading the mesh…" state={st}
+      <Frame title={options.label ?? "Mesh"} icon={options.icon ?? "host"} empty="Reading the mesh…" state={st}
         actions={<button type="button" aria-label="Larger" aria-pressed={big} onClick={() => setBig(!big)}
           className="grid size-7 place-items-center rounded-md border border-bk-line bg-bk-bg font-semibold text-bk-fg focus-visible:outline-2 focus-visible:outline-bk-accent">+</button>}>
         {body}

@@ -21,7 +21,7 @@ export const DevStream = defineWidget({
     const label = options.label ?? "DevStream";
     const sub = "basis-full text-[13px] text-bk-muted";
     return (
-      <Frame className="!p-3" title={label} icon={options.icon ?? "🖼️"} state={st} empty="Looking at DevStream…"
+      <Frame className="!p-3" title={label} icon={options.icon ?? "image"} state={st} empty="Looking at DevStream…"
         extra={options.href ? <a href={options.href} target="_blank" rel="noopener" className="text-bk-muted underline-offset-2 hover:underline">Open</a> : undefined}
         actions={<button type="button" aria-label="Larger" aria-pressed={big} onClick={() => setBig(!big)}
           className="grid size-7 place-items-center rounded-md border border-bk-line bg-bk-bg font-semibold text-bk-fg focus-visible:outline-2 focus-visible:outline-bk-accent">+</button>}>

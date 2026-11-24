@@ -51,7 +51,7 @@ function AskCard({ d, onGone }: { d: AskT; onGone: () => void }) {
 
 function InboxRow({ r, g, now, onDone }: { r: RowT; g: G; now: number; onDone: () => void }) {
   const [picked, setPicked] = useState<number>();
-  const glyph = g === "done" ? "✓" : g === "claude" ? "⏱" : KIND_GLYPH[r.kind] ?? "☐";
+  const glyph = g === "done" ? "✓" : g === "claude" ? "timer" : KIND_GLYPH[r.kind] ?? "☐";
   const label = g === "you" ? r.kind : g === "claude" ? "Claude is on it" : "Done";
   const [head, ...rest] = r.title.split(": "), tags = rest.length ? rest.join(": ").split(/,\s*/) : [];
   const gr = r.groomer.replace(/^Groomer note\s*/, "");
@@ -110,14 +110,14 @@ function Body({ asks, rows, now }: { asks: AskT[]; rows: RowT[]; now: number }) 
 
 export const DecisionQueue = defineWidget({
   type: "decision-queue", family: "input", title: "Decisions",
-  options: z.object({ title: z.string().default("Decisions"), icon: z.string().default("❓"),
+  options: z.object({ title: z.string().default("Decisions"), icon: z.string().default("ask"),
     /** ISO date used to age groomer notes; defaults to now. */ now: z.string().optional() }),
   data: z.object({ asks: z.array(Ask).default([]), rows: z.array(Row).default([]) }),
   size: { min: [2, 3], default: [3, 6], max: [6, 6] },
   render: ({ options, data, state }) => {
     const asks = data?.asks ?? [], rows = data?.rows ?? [];
     const now = options.now ? Date.parse(options.now) : Date.now();
-    return <Frame title={options.title ?? "Decisions"} icon={options.icon ?? "❓"} empty="Nothing waiting on you."
+    return <Frame title={options.title ?? "Decisions"} icon={options.icon ?? "ask"} empty="Nothing waiting on you."
       state={state === "ready" && !asks.length && !rows.length ? "empty" : state}>
       <Body asks={asks} rows={rows} now={now} /></Frame>;
   },

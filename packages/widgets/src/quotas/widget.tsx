@@ -46,21 +46,21 @@ function Spark({ tok, tip }: { tok: number[]; tip: string }) {
 
 export const Quotas = defineWidget({
   type: "quotas", family: "data", title: "Tokens and quotas",
-  options: z.object({ label: z.string().default("Tokens and quotas"), icon: z.string().default("🎛️") }),
+  options: z.object({ label: z.string().default("Tokens and quotas"), icon: z.string().default("gauge") }),
   data: Data,
   size: { min: [2, 2], default: [3, 4], max: [6, 4] },
   render: function QuotasView({ options, data: d, state }) {
     const [big, setBig] = useState(false);
     const g = d?.gemini, fp = g?.free_used == null ? null : Math.round((g.free_used / g.free_cap) * 100), pp = g?.paid_usd == null ? null : Math.round((g.paid_usd / g.daily_usd) * 100);
     return (
-      <Frame title={options.label ?? "Tokens and quotas"} icon={options.icon ?? "🎛️"} empty="Reading the quotas…"
+      <Frame title={options.label ?? "Tokens and quotas"} icon={options.icon ?? "gauge"} empty="Reading the quotas…"
         state={state === "ready" && !d ? "empty" : state}
         actions={<button type="button" aria-label="Larger" aria-pressed={big} onClick={() => setBig(!big)}
           className="grid size-7 place-items-center rounded-md border border-bk-line bg-bk-bg font-semibold text-bk-fg focus-visible:outline-2 focus-visible:outline-bk-accent">+</button>}>
         {d && <div className="-mt-1 h-full overflow-auto text-bk-fg">
           {!d.deck && <div className={`${META} text-bk-fg/80`} title="The offload control deck did not answer, so token and level numbers are missing">Offload deck not answering</div>}
           <section className="mb-1.5 min-w-0">
-            <Head g="🎛️" t="Auto-offload" tip="Auto-offload level" />
+            <Head g="gauge" t="Auto-offload" tip="Auto-offload level" />
             <div role="list" aria-label="Auto-offload level" title="Auto-offload level: how hard sessions are pushed to cheaper channels. Set on the offload control deck." className="flex gap-1">
               {d.levels.map((l) => { const on = l === d.auto; return (
                 <span role="listitem" key={l} aria-current={on || undefined} title={on ? `Current level: ${l}` : `Level ${l} (not active)`}

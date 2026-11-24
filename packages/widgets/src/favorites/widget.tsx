@@ -30,7 +30,7 @@ export const Favorites = defineWidget({
     const items = data?.items ?? [], live = data?.live ?? [];
     const st = state === "ready" && !items.length && !live.length ? "empty" : state;
     return (
-      <Frame title={options.label ?? "Favorites"} icon="🗒️" state={st} empty="No favorites: add rows to docs/favorites.json.">
+      <Frame title={options.label ?? "Favorites"} icon="markdown" state={st} empty="No favorites: add rows to docs/favorites.json.">
         <div className="h-full overflow-y-auto text-[15px] leading-snug">
           {live.map((l) => (
             <div key={l.label} className="mb-1.5 mt-0.5 flex items-baseline gap-2">

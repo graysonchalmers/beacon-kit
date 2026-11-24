@@ -84,7 +84,7 @@ export const Spotify = defineWidget({
         </div>);
     }
     return (
-      <Frame className="!p-3" title={options.label ?? "Spotify"} icon={options.icon ?? "🔊"} state={st} empty="Asking Spotify…"
+      <Frame className="!p-3" title={options.label ?? "Spotify"} icon={options.icon ?? "volume"} state={st} empty="Asking Spotify…"
         actions={<button type="button" aria-label="Larger" aria-pressed={big} onClick={() => setBig(!big)}
           className="grid size-7 place-items-center rounded-md border border-bk-line bg-bk-bg font-semibold text-bk-fg focus-visible:outline-2 focus-visible:outline-bk-accent">+</button>}>
         {body}

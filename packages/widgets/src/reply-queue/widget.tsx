@@ -28,7 +28,7 @@ export const ReplyQueue = defineWidget({
       catch { setStatus("Couldn't refresh"); } finally { setBusy(false); }
     };
     return (
-      <Frame title={options.label ?? "Proposed replies"} state={st} icon="✉️" empty={msg}
+      <Frame title={options.label ?? "Proposed replies"} state={st} icon="mail" empty={msg}
         actions={<button type="button" aria-label="Larger" aria-pressed={big} onClick={() => setBig(!big)}
           className="grid size-7 place-items-center rounded-md border border-bk-line bg-bk-bg font-semibold text-bk-fg focus-visible:outline-2 focus-visible:outline-bk-accent">+</button>}>
         <div className="flex h-full flex-col overflow-auto">

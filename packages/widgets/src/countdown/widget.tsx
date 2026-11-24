@@ -35,5 +35,5 @@ export const Countdown = defineWidget({
   size: { min: [1, 1], default: [2, 2], max: [3, 2] },
   render: ({ options, data, state }) => state === "ready" && data
     ? <Card label={options.label} endsAt={data.endsAt} now0={data.now} />
-    : <Frame title={options.label} state={state === "ready" ? "empty" : state} empty="No timer" icon="⏱" />,
+    : <Frame title={options.label} state={state === "ready" ? "empty" : state} empty="No timer" icon="timer" />,
 });

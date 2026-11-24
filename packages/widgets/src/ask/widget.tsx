@@ -45,7 +45,7 @@ export const Ask = defineWidget({
   render: function AskView({ options, data, state }) {
     const [big, setBig] = useState(false);
     return (
-      <Frame title={options.label ?? "Ask Stealth"} state={state === "ready" && !data ? "empty" : state} icon="💬" empty="Model list not loaded"
+      <Frame title={options.label ?? "Ask Stealth"} state={state === "ready" && !data ? "empty" : state} icon="ask" empty="Model list not loaded"
         actions={<button type="button" aria-label="Larger" aria-pressed={big} onClick={() => setBig(!big)}
           className="grid size-7 place-items-center rounded-md border border-bk-line bg-bk-bg font-semibold text-bk-fg focus-visible:outline-2 focus-visible:outline-bk-accent">+</button>}>
         {data && <Body models={data.models ?? []} model0={options.model ?? "auto"} prompt0={data.prompt ?? ""} />}

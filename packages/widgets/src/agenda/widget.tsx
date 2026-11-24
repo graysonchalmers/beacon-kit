@@ -26,7 +26,7 @@ export const Agenda = defineWidget({
     const groups: { day: string; items: typeof events }[] = [];
     for (const e of events) (groups.at(-1)?.day === e.day ? groups.at(-1)!.items : (groups.push({ day: e.day, items: [] }), groups.at(-1)!.items)).push(e);
     return (
-      <Frame title={options.label ?? "Calendar"} state={st} icon="📅" empty={msg}
+      <Frame title={options.label ?? "Calendar"} state={st} icon="calendar" empty={msg}
         actions={<button type="button" aria-label="Larger" aria-pressed={big} onClick={() => setBig(!big)}
           className="grid size-7 place-items-center rounded-md border border-bk-line bg-bk-bg font-semibold text-bk-fg focus-visible:outline-2 focus-visible:outline-bk-accent">+</button>}>
         <div className="flex h-full flex-col gap-0.5 overflow-auto">

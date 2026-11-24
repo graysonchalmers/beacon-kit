@@ -37,7 +37,7 @@ export const Radar = defineWidget({
     const rb = "min-h-[30px] min-w-[30px] rounded-[7px] border border-bk-fg/20 bg-bk-bg/60 px-2 py-0.5 text-[0.8em] text-bk-fg hover:bg-bk-bg/80 hover:border-bk-warn focus-visible:border-bk-warn focus-visible:outline-none";
     const img = (src: string | undefined, alt: string, cls = "") => src ? <img src={src} alt={alt} draggable={false} className={`absolute inset-0 h-full w-full object-cover ${cls}`} /> : null;
     return (
-      <Frame title={options.label ?? "Radar"} icon={options.icon ?? "📡"} state={state === "ready" && !data ? "empty" : state} empty="Loading…"
+      <Frame title={options.label ?? "Radar"} icon={options.icon ?? "radar"} state={state === "ready" && !data ? "empty" : state} empty="Loading…"
         actions={<button type="button" aria-label="Larger" aria-pressed={big} onClick={() => setBig(!big)}
           className="grid size-7 place-items-center rounded-md border border-bk-line bg-bk-bg font-semibold text-bk-fg focus-visible:outline-2 focus-visible:outline-bk-accent">+</button>}>
         <div className="flex h-full flex-col">

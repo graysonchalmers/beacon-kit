@@ -20,7 +20,7 @@ export const Docs = defineWidget({
     const groups = [...new Set(hits.map((l) => l.group || "Other"))];
     const st = state === "ready" && !data ? "empty" : state;
     return (
-      <Frame title={options.label ?? "Docs"} icon="🗒️" state={st} empty="No links yet: add rows to docs/links.json.">
+      <Frame title={options.label ?? "Docs"} icon="markdown" state={st} empty="No links yet: add rows to docs/links.json.">
         <div className="flex h-full min-h-0 flex-col text-[15px] leading-snug">
           <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Find a doc" aria-label="Find a doc"
             className="w-full border border-bk-line bg-bk-bg px-1 py-0.5 text-[15px] text-bk-fg placeholder:text-bk-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-bk-accent" />

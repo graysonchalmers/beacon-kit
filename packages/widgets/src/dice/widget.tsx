@@ -24,7 +24,7 @@ export const Dice = defineWidget({
     const [big, setBig] = useState(false);
     const label = options.label ?? "Dice";
     return (
-      <Frame title={label} state={state === "ready" && !data ? "empty" : state} icon="🎲"
+      <Frame title={label} state={state === "ready" && !data ? "empty" : state} icon="tile"
         actions={<button type="button" aria-label="Larger" aria-pressed={big} onClick={() => setBig(!big)}
           className="grid size-7 place-items-center rounded-md border border-bk-line bg-bk-bg font-semibold text-bk-fg focus-visible:outline-2 focus-visible:outline-bk-accent">+</button>}>
         {data && <Body value0={String(data.value ?? "-")} sides={options.sides ?? 6} label={label} />}

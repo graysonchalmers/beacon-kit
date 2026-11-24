@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { ActionsContext } from "../_shared/actions";
 import { DecisionQueue } from "./widget";
 
 // Parity data = old tests/fixtures.mjs /decisions (non-notion asks) + /notion rows, as the Sandbox card drew them.
@@ -22,7 +23,7 @@ const parity = {
 
 const View = DecisionQueue.render;
 const meta: Meta<typeof View> = { title: "Widgets/Input/DecisionQueue", component: View,
-  args: { options: { title: "Decisions", icon: "❓", now: "2026-11-24T12:00:00Z" }, size: [3, 6] },
+  args: { options: { title: "Decisions", icon: "ask", now: "2026-11-24T12:00:00Z" }, size: [3, 6] },
   decorators: [(S) => <div style={{ width: "299px", height: "602px" }}><S /></div>] };
 export default meta;
 type S = StoryObj<typeof View>;
@@ -33,4 +34,7 @@ export const Error: S = { args: { state: "error" } };
 /** Old "decisions" Sandbox card, 299 x 602. */
 export const Parity: S = { args: { state: "ready", data: parity } };
 /** Old "notion" Sandbox card: same layout, Notion Inbox title and db glyph. */
-export const ParityNotion: S = { args: { state: "ready", data: parity, options: { title: "Notion Inbox", icon: "🗄", now: "2026-11-24T12:00:00Z" } } };
+export const ParityNotion: S = { args: { state: "ready", data: parity, options: { title: "Notion Inbox", icon: "db", now: "2026-11-24T12:00:00Z" } } };
+/** Tap feedback when the server refuses: shake + "Didn't go through. Tap again." */
+export const SendFails: S = { args: { state: "ready", data: parity },
+  decorators: [(St) => <ActionsContext.Provider value={() => new Promise((r) => setTimeout(() => r(false), 400))}><St /></ActionsContext.Provider>] };

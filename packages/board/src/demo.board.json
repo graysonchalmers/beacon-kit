@@ -1,0 +1,13 @@
+{
+  "board": "Beacon Kit demo",
+  "cards": [
+    { "type": "stat-tile",    "x": 0, "y": 0, "w": 3, "h": 2, "options": { "label": "Legion RAM free", "unit": "GB" } },
+    { "type": "sparkline",    "x": 3, "y": 0, "w": 5, "h": 2, "options": { "label": "Offload tokens / hr", "unit": "k" } },
+    { "type": "item-list",    "x": 8, "y": 0, "w": 4, "h": 4, "options": { "label": "Fleet jobs" } },
+    { "type": "scene-3d",     "x": 0, "y": 2, "w": 4, "h": 4, "options": { "label": "Mesh preview" } },
+    { "type": "cutout-2d",    "x": 4, "y": 2, "w": 4, "h": 4, "options": { "label": "Banner cutout" } },
+    { "type": "media-viewer", "x": 8, "y": 4, "w": 4, "h": 4, "options": { "label": "Latest render" } },
+    { "type": "zod-form",     "x": 0, "y": 6, "w": 4, "h": 6, "options": { "label": "New job", "submitLabel": "Queue" } },
+    { "type": "chat-pane",    "x": 4, "y": 6, "w": 4, "h": 6, "options": { "label": "Beacon agent" } }
+  ]
+}

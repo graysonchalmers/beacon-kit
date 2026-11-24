@@ -29,7 +29,7 @@ function Body({ models, model0, prompt0 }: { models: string[]; model0: string; p
         <button type="button" className={`${iconBtn} ${warm ? "text-bk-warn" : ""}`} aria-label="Warm up" aria-pressed={warm}
           title="Load the model now so the first answer is quick" onClick={() => setWarm(true)}><span className="text-[10px] text-bk-warn">✦</span></button>
         <span className="flex-1" />
-        <button type="button" disabled={!prompt.trim()} onClick={() => setAsked(prompt.trim())}
+        <button type="button" data-primary disabled={!prompt.trim()} onClick={() => setAsked(prompt.trim())}
           className={`${ctl} h-9 px-3 text-[15px] font-semibold hover:bg-bk-raise disabled:opacity-50`}>Ask</button>
       </div>
       {asked && <p aria-live="polite" className="text-sm text-bk-muted">Asking {model}…</p>}

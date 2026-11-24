@@ -1,0 +1,41 @@
+/* Swamp skin surface: ported from Util-VoiceServer skins/swamp/skin.css (2026-11-24).
+   Old final card look = flat moss panel, 1px inner ring, hard offset shadow, gold display-face header plate on a bog texture.
+   9-slice pxl frames (2x, pixelated) dress buttons, wells and checks, as in the old skin. Fonts: Fira Sans (SIL OFL). */
+@font-face { font-family: "Swamp Fira"; src: url(./FiraSans-SemiBold.otf) format("opentype"); font-weight: 400 600; }
+@font-face { font-family: "Swamp Fira"; src: url(./FiraSans-Bold.otf) format("opentype"); font-weight: 700 900; }
+@font-face { font-family: "Swamp Display"; src: url(./FiraSansCompressed-ExtraBold.otf) format("opentype"); font-weight: 400 900; }
+
+[data-skin="swamp"] {
+  --bk-font: "Swamp Fira", system-ui, sans-serif;
+  --k-frame: url(./px_bar_frame.png); --k-btn: url(./px_button.png); --k-btn-h: url(./px_button_hover.png);
+  --k-btn-p: url(./px_button_pressed.png); --k-slot: url(./px_slot.png); --k-panel: url(./px_panel.png);
+  background: radial-gradient(ellipse at 50% 0%, transparent 40%, rgba(0,0,0,.55) 100%), url(./bog_albedo.png) 0 0 / 256px;
+  image-rendering: pixelated; text-shadow: 0 1px 0 rgba(0,0,0,.55);
+}
+[data-skin="swamp"] img, [data-skin="swamp"] video, [data-skin="swamp"] iframe, [data-skin="swamp"] canvas { image-rendering: auto; }
+
+/* cards */
+[data-skin="swamp"] .bk-card { border: 0; border-radius: 10px; background: rgb(30,44,33);
+  box-shadow: inset 0 0 0 1px rgba(141,176,78,.25), 0 6px 0 rgba(0,0,0,.4); padding: 10px 12px; transition: transform .14s ease, box-shadow .14s ease; }
+@media (hover: hover) { [data-skin="swamp"] .bk-card:hover { transform: translateY(-1px); box-shadow: inset 0 0 0 1px rgba(141,176,78,.32), 0 7px 0 rgba(0,0,0,.42); } }
+@media (prefers-reduced-motion: reduce) { [data-skin="swamp"] .bk-card { transition: none; } [data-skin="swamp"] .bk-card:hover { transform: none; } }
+[data-skin="swamp"] .bk-head { margin: -10px -12px 4px; padding: 7px 12px 6px; background: linear-gradient(rgba(0,0,0,.28), rgba(0,0,0,.18));
+  border-bottom: 2px solid rgba(0,0,0,.45); box-shadow: 0 1px 0 rgba(255,255,255,.06); }
+[data-skin="swamp"] .bk-head h3 { font-family: "Swamp Display", var(--bk-font); font-size: 19px !important; letter-spacing: .02em !important; color: var(--bk-warn) !important; font-weight: 800 !important; }
+[data-skin="swamp"] .bk-head .bk-glyph { color: var(--bk-accent); }
+[data-skin="swamp"] .bk-card :is(.tabular-nums, [data-num]) { font-family: "Swamp Display", var(--bk-font); text-shadow: 2px 2px 0 rgba(0,0,0,.6); }
+
+/* in-card controls: ghost buttons and dark wells (old "flat cards" pass); primary actions keep the green 9-slice kit button */
+[data-skin="swamp"] .bk-card button:not([data-primary]) { border-radius: 0; background: rgba(0,0,0,.28); }
+[data-skin="swamp"] .bk-card :is(input:not([type=checkbox]):not([type=range]), select, textarea) { border-radius: 0; border-color: transparent; background: rgba(0,0,0,.3); }
+[data-skin="swamp"] button[data-primary] { border: 12px solid transparent; border-image: var(--k-btn) 6 fill / 12px stretch; background: none; color: var(--bk-on-accent); padding: 0 6px 2px; }
+[data-skin="swamp"] button[data-primary]:hover { border-image-source: var(--k-btn-h); }
+[data-skin="swamp"] button[data-primary]:active { border-image-source: var(--k-btn-p); }
+[data-skin="swamp"] input[type=checkbox] { appearance: none; position: relative; box-sizing: border-box; width: 32px; height: 32px; flex: none;
+  border: 6px solid transparent; border-image: var(--k-slot) 5 / 6px stretch; background: url(./mud_albedo.png) 0 0 / 256px; background-clip: padding-box;
+  box-shadow: inset 0 2px 0 rgba(0,0,0,.45); cursor: pointer; }
+[data-skin="swamp"] input[type=checkbox]:checked::after { content: ""; position: absolute; inset: 3px; background: var(--bk-accent);
+  box-shadow: inset 0 2px 0 rgba(255,255,220,.45), inset 0 -2px 0 rgba(0,0,0,.4), 0 2px 0 rgba(0,0,0,.5); }
+[data-skin="swamp"] input[type=checkbox]:focus-visible { outline: 2px solid var(--bk-warn); outline-offset: 2px; }
+/* rows as slots */
+[data-skin="swamp"] .bk-card li:nth-child(even) { background: rgba(0,0,0,.16); }

@@ -1,2 +1,22 @@
-:root { --bk-bg:#0f1115; --bk-fg:#e8eaed; --bk-accent:#ffb020; --bk-muted:#8a919c;
-  --bk-space-1:4px; --bk-space-2:8px; --bk-space-3:12px; --bk-radius:10px; }
+/* Skins. Widgets only use these semantic tokens, so a skin changes the look, never the information.
+   Apply with data-skin="<name>" on any wrapper (a whole app, a board, or one card). */
+:root, [data-skin="ember"] {
+  --bk-bg:#0f1115; --bk-card:#181b22; --bk-raise:#262a33; --bk-line:#ffffff14;
+  --bk-fg:#e8eaed; --bk-muted:#8a919c; --bk-accent:#ffb020; --bk-on-accent:#0f1115;
+  --bk-ok:#34d399; --bk-warn:#ffb020; --bk-danger:#f87171;
+  --bk-font:ui-sans-serif, system-ui, sans-serif; --bk-radius:10px;
+  --bk-space-1:4px; --bk-space-2:8px; --bk-space-3:12px;
+}
+[data-skin="paper"] {
+  --bk-bg:#f4f1ea; --bk-card:#fffdf8; --bk-raise:#ebe6da; --bk-line:#00000017;
+  --bk-fg:#1f1d1a; --bk-muted:#6b665c; --bk-accent:#2f5fd0; --bk-on-accent:#ffffff;
+  --bk-ok:#1d8a5a; --bk-warn:#b7791f; --bk-danger:#c53030;
+  --bk-font:Georgia, "Iowan Old Style", serif; --bk-radius:4px;
+}
+[data-skin="terminal"] {
+  --bk-bg:#050805; --bk-card:#0a110a; --bk-raise:#13221a; --bk-line:#3cff7a33;
+  --bk-fg:#b6ffc8; --bk-muted:#4f9a63; --bk-accent:#3cff7a; --bk-on-accent:#050805;
+  --bk-ok:#3cff7a; --bk-warn:#e6ff3c; --bk-danger:#ff4f4f;
+  --bk-font:ui-monospace, "Cascadia Code", Menlo, monospace; --bk-radius:0px;
+}
+[data-skin] { background: var(--bk-bg); color: var(--bk-fg); font-family: var(--bk-font); }

@@ -18,14 +18,14 @@ function Pane({ initial }: { initial: Msg[] }) {
     <div className="flex h-full flex-col gap-2">
       <ol aria-live="polite" className="flex min-h-0 flex-1 flex-col gap-1.5 overflow-auto">
         {msgs.map((m) => (
-          <li key={m.id} className={`max-w-[85%] rounded-lg px-2.5 py-1.5 text-sm ${m.from === "user" ? "self-end bg-bk-accent text-bk-bg" : "self-start bg-white/10 text-bk-fg"}`}>
+          <li key={m.id} className={`max-w-[85%] rounded-lg px-2.5 py-1.5 text-sm ${m.from === "user" ? "self-end bg-bk-accent text-bk-on-accent" : "self-start bg-bk-raise text-bk-fg"}`}>
             <span className="sr-only">{m.from}: </span>{m.text}
           </li>
         ))}
       </ol>
       <form onSubmit={send} className="flex gap-1">
-        <input name="m" aria-label="Message" placeholder="Message…" className="min-w-0 flex-1 rounded border border-white/10 bg-bk-bg px-2 py-1 text-sm text-bk-fg outline-none focus-visible:ring-2 focus-visible:ring-bk-accent" />
-        <button className="rounded bg-white/10 px-2 text-sm text-bk-fg focus-visible:ring-2 focus-visible:ring-bk-accent">Send</button>
+        <input name="m" aria-label="Message" placeholder="Message…" className="min-w-0 flex-1 rounded border border-bk-line bg-bk-bg px-2 py-1 text-sm text-bk-fg outline-none focus-visible:ring-2 focus-visible:ring-bk-accent" />
+        <button className="rounded bg-bk-raise px-2 text-sm text-bk-fg focus-visible:ring-2 focus-visible:ring-bk-accent">Send</button>
       </form>
     </div>
   );

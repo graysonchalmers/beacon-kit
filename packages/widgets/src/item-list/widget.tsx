@@ -3,7 +3,7 @@ import { defineWidget } from "../contract";
 import { Frame } from "../_shared/Frame";
 
 const Item = z.object({ id: z.string(), label: z.string(), meta: z.string().optional(), status: z.enum(["ok", "warn", "fail"]).optional() });
-const dot = { ok: "bg-emerald-400", warn: "bg-bk-accent", fail: "bg-red-400" } as const;
+const dot = { ok: "bg-bk-ok", warn: "bg-bk-warn", fail: "bg-bk-danger" } as const;
 
 export const ItemList = defineWidget({
   type: "item-list", family: "list", title: "Item list",
@@ -16,7 +16,7 @@ export const ItemList = defineWidget({
     const showMeta = size[0] >= 3;
     return (
       <Frame title={options.label} state={st} empty="Nothing here">
-        <ul className="flex flex-col divide-y divide-white/5 overflow-auto">
+        <ul className="flex flex-col divide-y divide-bk-line overflow-auto">
           {items.slice(0, options.max ?? 8).map((it) => (
             <li key={it.id} tabIndex={0} className="flex items-center gap-2 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-bk-accent">
               {it.status && <span aria-label={it.status} className={`size-2 shrink-0 rounded-full ${dot[it.status]}`} />}

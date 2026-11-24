@@ -1,0 +1,5 @@
+@import "tailwindcss";
+@import "./tokens.css";
+@theme { --color-bk-bg: var(--bk-bg); --color-bk-fg: var(--bk-fg); --color-bk-accent: var(--bk-accent); --color-bk-muted: var(--bk-muted); --color-bk-card:#181b22; }
+body { background: var(--bk-bg); color: var(--bk-fg); font-family: ui-sans-serif, system-ui, sans-serif; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; } }

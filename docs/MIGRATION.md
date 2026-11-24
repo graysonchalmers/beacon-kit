@@ -19,12 +19,12 @@ Every kit widget uses semantic tokens only, so all of them work in every skin (S
 | `scene` | `scene-3d` | ✅ |
 | `ask`, `boss` | `chat-pane` | ✅ |
 | `calendar`, `mail`, `notion`, `replies`, `decisions`, `favorites`, `projects`, `archived` | `item-list` (data adapter per source) | 🟨 widget ✅, adapters not wired |
-| `devstream`, `ytplaylists` | `media-viewer` + `item-list` | 🟨 needs a `media-grid` widget |
-| `spotify` | new `player` widget | ⬜ |
-| `radar` | new `radar-map` widget (canvas) | ⬜ |
-| `iso` (frogs) | new `iso-scene` widget | ⬜ |
-| `kit` (kitscreen / glyphs / fx) | tokens + primitives, a skin | ⬜ |
-| Board shell: card ⋯ menu, Arrange / Add / Archive, Focus | `board` shell | ⬜ |
+| `devstream`, `ytplaylists` | `media-grid` | ✅ |
+| `spotify` | `player` | ✅ |
+| `radar` | `radar-map` | ✅ (image layers; old MRMS QC / hillshade stays server-side) |
+| `iso` (frogs) | `iso-scene` | ✅ (flat SVG islands; sprite atlas later) |
+| `kit` (kitscreen / glyphs / fx) | `swamp` skin | ✅ colors/font/radius; glyph icons ⬜ |
+| Board shell: card ⋯ menu, Arrange / Add / Archive, Focus | `BoardShell` (+ skin picker) | ✅ |
 | Chat pane cloud / local toggle | `chat-pane` option | ⬜ |
 
 Status: ⬜ old · 🟨 moving · ✅ moved (widget exists with 4 state stories)

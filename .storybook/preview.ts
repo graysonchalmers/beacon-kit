@@ -5,7 +5,7 @@ import "../packages/tokens/kit.css";
 const preview: Preview = {
   parameters: { backgrounds: { disable: true }, layout: "centered" },
   globalTypes: { skin: { description: "Skin", defaultValue: "ember",
-    toolbar: { title: "Skin", icon: "paintbrush", items: ["ember", "paper", "terminal"], dynamicTitle: true } } },
+    toolbar: { title: "Skin", icon: "paintbrush", items: ["ember", "paper", "terminal", "swamp"], dynamicTitle: true } } },
   decorators: [(Story, ctx) => {
     const skin = ctx.parameters.skin ?? ctx.globals.skin ?? "ember";
     document.body.dataset.skin = skin; // full-page background follows the skin

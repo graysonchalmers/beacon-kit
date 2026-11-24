@@ -93,7 +93,7 @@ export const IsoScene = defineWidget({
   size: { min: [3, 2], default: [6, 3], max: [12, 6] },
   render: ({ options, data, state }) => {
     const ms = data?.machines ?? [];
-    return <Frame title={options.label} state={state === "ready" && !ms.length ? "empty" : state} empty="No machines">
+    return <Frame title={options.label} icon="scene" state={state === "ready" && !ms.length ? "empty" : state} empty="No machines">
       <div className="grid h-full grid-cols-[repeat(auto-fit,minmax(7rem,1fr))] items-center gap-2 overflow-auto">{ms.map((m) => <Island key={m.id} m={m} />)}</div></Frame>;
   },
 });

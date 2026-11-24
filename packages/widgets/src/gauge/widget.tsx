@@ -19,7 +19,7 @@ export const Gauge = defineWidget({
     const arc = (to: number) => `M ${pt(a0)} A ${R} ${R} 0 ${to - a0 > Math.PI ? 1 : 0} 1 ${pt(to)}`;
     const tone = options.danger !== undefined && v >= options.danger ? "var(--bk-danger)" : options.warn !== undefined && v >= options.warn ? "var(--bk-warn)" : "var(--bk-accent)";
     return (
-      <Frame title={options.label} state={state === "ready" && !data ? "empty" : state} icon="⏲️"
+      <Frame title={options.label} state={state === "ready" && !data ? "empty" : state} icon="gauge"
         actions={<button type="button" aria-label="Larger" aria-pressed={big} onClick={() => setBig(!big)}
           className="grid size-7 place-items-center rounded-md border border-bk-line bg-bk-bg font-semibold text-bk-fg focus-visible:outline-2 focus-visible:outline-bk-accent">+</button>}>
         <svg viewBox="0 0 200 170" className="mx-auto block max-h-full w-full max-w-[260px]" role="img" aria-label={`${options.label}: ${v} of ${max} ${options.unit ?? ""}`}>

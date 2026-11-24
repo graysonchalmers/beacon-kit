@@ -23,7 +23,7 @@ function hitsOf(list: P[], q: string, by: Sort) {
 }
 const tile = (p: P): [string, string] => {
   const m = /^(\p{Extended_Pictographic}️?)\s*(.*)$/u.exec(p.nick || "");
-  return m ? [m[1], m[2]] : [/\p{Extended_Pictographic}/u.test(p.emoji || "") ? p.emoji! : "📁", p.nick || p.name];
+  return m ? [m[1], m[2]] : [/\p{Extended_Pictographic}/u.test(p.emoji || "") ? p.emoji! : "projects", p.nick || p.name];
 };
 const ring = "focus-visible:outline focus-visible:outline-2 focus-visible:outline-bk-accent";
 
@@ -39,7 +39,7 @@ export const Projects = defineWidget({
     const hits = hitsOf(data?.projects ?? [], q, sort);
     const st = state === "ready" && !data ? "empty" : state;
     return (
-      <Frame title={options.label ?? "Projects"} icon="📁" state={st}>
+      <Frame title={options.label ?? "Projects"} icon="projects" state={st}>
         <div className="flex h-full min-h-0 flex-col text-[15px] leading-snug">
           <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Name, nickname, emoji or what it does" aria-label="Find a project"
             className={`box-border w-full rounded-lg border border-bk-line bg-bk-bg px-2 py-1.5 text-bk-fg placeholder:text-bk-muted ${ring}`} />

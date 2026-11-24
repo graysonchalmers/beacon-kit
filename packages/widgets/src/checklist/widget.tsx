@@ -36,7 +36,7 @@ export const Checklist = defineWidget({
     const [big, setBig] = useState(false);
     const [done, setDone] = useState<number | null>(null);
     const n = done ?? items.filter((i) => i.done).length;
-    return <Frame title={options.label} state={state === "ready" && !items.length ? "empty" : state} empty="Nothing to do" icon="📋"
+    return <Frame title={options.label} state={state === "ready" && !items.length ? "empty" : state} empty="Nothing to do" icon="checklist"
       extra={items.length ? `${n}/${items.length}` : undefined}
       actions={<button type="button" aria-label="Larger" aria-pressed={big} onClick={() => setBig(!big)}
           className="grid size-7 place-items-center rounded-md border border-bk-line bg-bk-bg font-semibold text-bk-fg focus-visible:outline-2 focus-visible:outline-bk-accent">+</button>}>

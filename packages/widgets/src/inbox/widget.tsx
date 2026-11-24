@@ -27,7 +27,7 @@ export const Inbox = defineWidget({
     };
     const btn = "rounded-lg border border-bk-line bg-bk-bg px-2.5 py-[3px] text-[13px] font-semibold text-bk-fg whitespace-nowrap disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-bk-accent";
     return (
-      <Frame title={options.label ?? "Inbox"} state={st} icon="✉️" empty={msg}
+      <Frame title={options.label ?? "Inbox"} state={st} icon="mail" empty={msg}
         actions={<button type="button" aria-label="Larger" aria-pressed={big} onClick={() => setBig(!big)}
           className="grid size-7 place-items-center rounded-md border border-bk-line bg-bk-bg font-semibold text-bk-fg focus-visible:outline-2 focus-visible:outline-bk-accent">+</button>}>
         <div className="flex h-full flex-col overflow-auto">

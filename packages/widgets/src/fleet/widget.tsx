@@ -56,7 +56,7 @@ function Tile({ m, power, idle }: { m: M; power?: z.infer<typeof data>["power"];
       className={`min-w-0 rounded-sm border-2 border-bk-line bg-bk-bg shadow-[2px_2px_0_rgb(0_0_0/.55)] px-2 pb-[7px] pt-1.5 ${grey ? "opacity-55 grayscale" : m.state === "down" ? "opacity-80" : ""}`}>
       <div className="mb-1 flex items-center gap-1.5 text-[11px] uppercase tracking-[.06em]">
         <i className={`size-2.5 flex-none shadow-[0_0_0_2px_rgb(0_0_0/.5)] ${pip}`} />
-        <span aria-hidden className="text-[11px]">{g || m.id === "stealth" ? "📼" : "🖥"}</span>
+        <span aria-hidden className="text-[11px]">{g || m.id === "stealth" ? "📼" : "host"}</span>
         <b className="min-w-0 flex-1 truncate text-[13px]">{name}</b>
         {grey && <span className="flex-none bg-bk-raise px-1 text-[10px]" title={stateTip}>{m.state === "stale" ? age(m.age_s) : "?"}</span>}
         {m.state === "down" && <span className="flex-none bg-bk-raise px-1 text-[10px]">DOWN</span>}
@@ -92,7 +92,7 @@ export const Fleet = defineWidget({
   render: ({ options, data: d, state }) => {
     const l = d?.lease;
     return (
-      <Frame className="!p-3" title={options.title ?? "Fleet"} icon="🖥" state={state === "ready" && !d?.machines.length ? "empty" : state} empty="Reading the fleet…">
+      <Frame className="!p-3" title={options.title ?? "Fleet"} icon="host" state={state === "ready" && !d?.machines.length ? "empty" : state} empty="Reading the fleet…">
         <div className="grid h-full min-h-0 gap-1.5 overflow-y-auto text-[12px] font-semibold leading-[1.3]">
           <div className="grid gap-1.5 [grid-template-columns:repeat(auto-fit,minmax(150px,1fr))]">
             {d?.machines.map((m) => <Tile key={m.id} m={m} power={d.power} idle={!!d.power?.idle.includes(m.id)} />)}

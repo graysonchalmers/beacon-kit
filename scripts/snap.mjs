@@ -8,7 +8,7 @@ const root = "storybook-static", out = process.argv[2] ?? "snapshots";
 const types = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".woff2": "font/woff2" };
 const srv = createServer(async (q, r) => {
   const p = join(root, decodeURIComponent(q.url.split("?")[0]).replace(/\/$/, "/index.html"));
-  try { r.writeHead(200, { "content-type": types[extname(p)] ?? "application/octet-stream" }); r.end(await readFile(p)); }
+  try { const b = await readFile(p); r.writeHead(200, { "content-type": types[extname(p)] ?? "application/octet-stream" }); r.end(b); }
   catch { r.writeHead(404); r.end(); }
 }).listen(0);
 const base = `http://localhost:${srv.address().port}`;

@@ -13,14 +13,14 @@ const Probe = z.object({
   small: z.string().optional(), lines: z.array(z.string()).default([]), level: Level.default("ok"),
 });
 const NAMES: Record<string, string> = { weather: "Weather", alerts: "Alerts", temp: "Temp", claude: "Claude", queue: "Queue", build: "Build", stealth: "Stealth", legion: "Legion" };
-const GLYPH: Record<string, string> = { weather: "☁️", alerts: "⚠️", temp: "🌡️", claude: "✳️", queue: "☰", build: "🔨", stealth: "📟", legion: "🖥️" };
+const GLYPH: Record<string, string> = { weather: "☁️", alerts: "⚠️", temp: "🌡️", claude: "✳️", queue: "☰", build: "🔨", stealth: "📟", legion: "host" };
 const STRIPE = { ok: "border-l-bk-ok", warn: "border-l-bk-warn", bad: "border-l-bk-danger" } as const;
 const LEAD: [RegExp, string][] = [[/^⚠ /, "⚠️ "], [/^mail: /, "✉️ "], [/^cal(?:endar)?: /, "📅 "], [/^wx: /, "⚠️ "]];
 const lead = (l: string) => { for (const [re, g] of LEAD) if (re.test(l)) return g + l.replace(re, ""); return l; };
 
 export const SysScope = defineWidget({
   type: "sysscope", family: "data", title: "SysScope",
-  options: z.object({ label: z.string().default("Envy"), icon: z.string().default("🖥️") }),
+  options: z.object({ label: z.string().default("Envy"), icon: z.string().default("host") }),
   data: z.object({ rows: z.array(Probe) }),
   size: { min: [2, 2], default: [3, 6], max: [4, 4] },
   render: function SysScopeView({ options, data, state, size }) {
@@ -28,7 +28,7 @@ export const SysScope = defineWidget({
     const rows = data?.rows ?? [];
     const showName = size[0] >= 4;   // narrow card: glyph only, the name lives in the tooltip (as the old card)
     return (
-      <Frame title={options.label ?? "Envy"} icon={options.icon ?? "🖥️"} empty="Reading the probes…"
+      <Frame title={options.label ?? "Envy"} icon={options.icon ?? "host"} empty="Reading the probes…"
         state={state === "ready" && rows.length === 0 ? "empty" : state}
         actions={<button type="button" aria-label="Larger" aria-pressed={big} onClick={() => setBig(!big)}
           className="grid size-7 place-items-center rounded-md border border-bk-line bg-bk-bg font-semibold text-bk-fg focus-visible:outline-2 focus-visible:outline-bk-accent">+</button>}>

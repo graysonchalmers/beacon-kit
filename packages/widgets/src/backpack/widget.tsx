@@ -43,7 +43,7 @@ export const Backpack = defineWidget({
     const [big, setBig] = useState(false);
     const items = data?.items ?? [];
     return (
-      <Frame title={options.label ?? "Backpack"} state={state === "ready" && !items.length ? "empty" : state} icon="🎮" empty="The backpack is empty"
+      <Frame title={options.label ?? "Backpack"} state={state === "ready" && !items.length ? "empty" : state} icon="tile" empty="The backpack is empty"
         actions={<button type="button" aria-label="Larger" aria-pressed={big} onClick={() => setBig(!big)}
           className="grid size-7 place-items-center rounded-md border border-bk-line bg-bk-bg font-semibold text-bk-fg focus-visible:outline-2 focus-visible:outline-bk-accent">+</button>}>
         <Body title={options.title ?? "Inventory"} items={items} />

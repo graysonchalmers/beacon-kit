@@ -32,7 +32,7 @@ export const Counter = defineWidget({
   render: function CounterView({ options, data, state }) {
     const items = data?.items ?? [];
     const [big, setBig] = useState(false);
-    return <Frame title={options.label} state={state === "ready" && !items.length ? "empty" : state} icon="🧮"
+    return <Frame title={options.label} state={state === "ready" && !items.length ? "empty" : state} icon="counter"
       actions={<button type="button" aria-label="Larger" aria-pressed={big} onClick={() => setBig(!big)}
           className="grid size-7 place-items-center rounded-md border border-bk-line bg-bk-bg font-semibold text-bk-fg focus-visible:outline-2 focus-visible:outline-bk-accent">+</button>}><Body items={items} /></Frame>;
   },

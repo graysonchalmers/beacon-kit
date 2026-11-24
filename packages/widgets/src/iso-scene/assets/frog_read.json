@@ -1,0 +1,148 @@
+{
+ "frames": {
+  "frog_read_0": {
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 26,
+    "h": 26
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 26,
+    "h": 26
+   },
+   "sourceSize": {
+    "w": 26,
+    "h": 26
+   },
+   "duration": 250
+  },
+  "frog_read_1": {
+   "frame": {
+    "x": 26,
+    "y": 0,
+    "w": 26,
+    "h": 26
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 26,
+    "h": 26
+   },
+   "sourceSize": {
+    "w": 26,
+    "h": 26
+   },
+   "duration": 250
+  },
+  "frog_read_2": {
+   "frame": {
+    "x": 52,
+    "y": 0,
+    "w": 26,
+    "h": 26
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 26,
+    "h": 26
+   },
+   "sourceSize": {
+    "w": 26,
+    "h": 26
+   },
+   "duration": 250
+  },
+  "frog_read_3": {
+   "frame": {
+    "x": 78,
+    "y": 0,
+    "w": 26,
+    "h": 26
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 26,
+    "h": 26
+   },
+   "sourceSize": {
+    "w": 26,
+    "h": 26
+   },
+   "duration": 250
+  },
+  "frog_read_4": {
+   "frame": {
+    "x": 104,
+    "y": 0,
+    "w": 26,
+    "h": 26
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 26,
+    "h": 26
+   },
+   "sourceSize": {
+    "w": 26,
+    "h": 26
+   },
+   "duration": 250
+  },
+  "frog_read_5": {
+   "frame": {
+    "x": 130,
+    "y": 0,
+    "w": 26,
+    "h": 26
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 26,
+    "h": 26
+   },
+   "sourceSize": {
+    "w": 26,
+    "h": 26
+   },
+   "duration": 250
+  }
+ },
+ "meta": {
+  "app": "pxl",
+  "image": "frog_read.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 156,
+   "h": 26
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "frog_read",
+    "from": 0,
+    "to": 5,
+    "direction": "forward"
+   }
+  ]
+ }
+}

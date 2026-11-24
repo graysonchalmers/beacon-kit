@@ -1,0 +1,190 @@
+{
+ "frames": {
+  "frog_idle_0": {
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 26,
+    "h": 26
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 26,
+    "h": 26
+   },
+   "sourceSize": {
+    "w": 26,
+    "h": 26
+   },
+   "duration": 167
+  },
+  "frog_idle_1": {
+   "frame": {
+    "x": 26,
+    "y": 0,
+    "w": 26,
+    "h": 26
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 26,
+    "h": 26
+   },
+   "sourceSize": {
+    "w": 26,
+    "h": 26
+   },
+   "duration": 167
+  },
+  "frog_idle_2": {
+   "frame": {
+    "x": 52,
+    "y": 0,
+    "w": 26,
+    "h": 26
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 26,
+    "h": 26
+   },
+   "sourceSize": {
+    "w": 26,
+    "h": 26
+   },
+   "duration": 167
+  },
+  "frog_idle_3": {
+   "frame": {
+    "x": 78,
+    "y": 0,
+    "w": 26,
+    "h": 26
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 26,
+    "h": 26
+   },
+   "sourceSize": {
+    "w": 26,
+    "h": 26
+   },
+   "duration": 167
+  },
+  "frog_idle_4": {
+   "frame": {
+    "x": 104,
+    "y": 0,
+    "w": 26,
+    "h": 26
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 26,
+    "h": 26
+   },
+   "sourceSize": {
+    "w": 26,
+    "h": 26
+   },
+   "duration": 167
+  },
+  "frog_idle_5": {
+   "frame": {
+    "x": 130,
+    "y": 0,
+    "w": 26,
+    "h": 26
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 26,
+    "h": 26
+   },
+   "sourceSize": {
+    "w": 26,
+    "h": 26
+   },
+   "duration": 167
+  },
+  "frog_idle_6": {
+   "frame": {
+    "x": 156,
+    "y": 0,
+    "w": 26,
+    "h": 26
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 26,
+    "h": 26
+   },
+   "sourceSize": {
+    "w": 26,
+    "h": 26
+   },
+   "duration": 167
+  },
+  "frog_idle_7": {
+   "frame": {
+    "x": 182,
+    "y": 0,
+    "w": 26,
+    "h": 26
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 26,
+    "h": 26
+   },
+   "sourceSize": {
+    "w": 26,
+    "h": 26
+   },
+   "duration": 167
+  }
+ },
+ "meta": {
+  "app": "pxl",
+  "image": "frog_idle.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 208,
+   "h": 26
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "frog_idle",
+    "from": 0,
+    "to": 7,
+    "direction": "forward"
+   }
+  ]
+ }
+}

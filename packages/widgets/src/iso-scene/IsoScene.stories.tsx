@@ -6,7 +6,7 @@ const meta: Meta<typeof View> = { title: "Widgets/2D/Agents and machines", compo
   decorators: [(S) => <div style={{ width: "22rem", height: "16rem" }}><S /></div>] };
 export default meta;
 type S = StoryObj<typeof View>;
-export const Ready: S = { args: { state: "ready", data: { machines: [ { id: "envy", name: "Envy", up: true, jobs: [ { id: "a", mood: "work", say: "Editing" }, { id: "b", mood: "think" }, { id: "c", mood: "idle" } ] }, { id: "legion", name: "Legion", up: true, jobs: [ { id: "d", mood: "sad", say: "RAM tight" } ] }, { id: "stealth", name: "Stealth", up: true, jobs: [ { id: "e", mood: "sleep" } ] }, { id: "moby", name: "Moby", up: false, jobs: [] } ] } } };
+export const Ready: S = { args: { state: "ready", data: { machines: [ { id: "envy", name: "Envy", up: true, mem: 40, temp: 55, jobs: [ { id: "a", mood: "work", say: "Editing" }, { id: "b", mood: "think" }, { id: "c", mood: "idle" } ] }, { id: "legion", name: "Legion", up: true, mem: 88, temp: 78, jobs: [ { id: "d", mood: "sad", say: "RAM tight" } ] }, { id: "stealth", name: "Stealth", up: true, mem: 20, temp: 45, jobs: [ { id: "e", mood: "sleep" } ] }, { id: "moby", name: "Moby", up: false, jobs: [] } ] } } };
 export const Loading: S = { args: { state: "loading" } };
 export const Empty: S = { args: { state: "empty" } };
 export const Error: S = { args: { state: "error" } };

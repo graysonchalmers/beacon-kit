@@ -12,7 +12,8 @@ export type VoiceSnapshot = { state: J; agenda?: J; decisions?: J; notion?: J; r
 export type Live = Record<number, { data?: unknown; state?: WidgetState }>;
 
 export async function fetchVoice(base = "", f: typeof fetch = fetch): Promise<VoiceSnapshot> {
-  const get = (p: string) => f(base + p, { cache: "no-store" }).then((r) => (r.ok ? r.json() : undefined)).catch(() => undefined);
+  const get = (p: string) => { const c = new AbortController(); setTimeout(() => c.abort(), 8000); return f(base + p, { cache: "no-store", signal: c.signal })   // one slow endpoint must not hold every card
+    .then((r) => (r.ok ? r.json() : undefined)).catch(() => undefined); };
   const P = ["/state", "/agenda", "/decisions", "/notion", "/replies", "/docs", "/sysscope", "/mesh", "/fleet", "/projects", "/favorites", "/devstream", "/quotas", "/stealth-models"];
   const [state, agenda, decisions, notion, replies, docs, sysscope, mesh, fleet, projects, favorites, devstream, quotas, stealthModels] = await Promise.all(P.map(get));
   if (!state) throw new Error("voice.py /state unreachable");
@@ -50,7 +51,7 @@ export const MAP: Record<string, Map> = {
   iso: { type: "iso-scene", size: [6, 3], options: (w) => ({ label: w.title || "Agents & Machines" }),
     data: (s) => { const h = s.state.iso?.hosts; return h && { machines: Object.entries(h).map(([id, m]: [string, any]) => ({ id, name: id[0].toUpperCase() + id.slice(1),
       up: !!m && m.state !== "offline", mem: m?.mem, temp: m?.temp, jobs: (m?.jobs ?? []).map((j: J, i: number) => ({ id: `${id}${i}`, say: j.say || j.name, mood: MOOD[j.state] ?? "idle" })) })) }; } },
-  tile: { type: "stat-tile", size: [2, 2], options: (w) => ({ label: w.title || "Tile" }),
+  tile: { type: "stat-tile", size: [2, 2], options: (w) => { const u = String(w.value ?? "").replace(/^\s*-?[\d.,]+\s*/, "").trim(); return { label: w.title || "Tile", ...(u ? { unit: u.slice(0, 8) } : {}) }; },
     data: (_s, w) => { const v = parseFloat(String(w.value ?? "")); return Number.isFinite(v) ? { value: v } : undefined; } },
   sysscope: { type: "sysscope", size: [4, 4], options: (w) => ({ label: w.title || "Envy" }),
     data: (s, w) => s.sysscope && { rows: ((w.rows as string[] | undefined) ?? Object.keys(s.sysscope)).filter((k) => s.sysscope![k]).map((k) => { const p = s.sysscope![k];
@@ -108,7 +109,7 @@ export function radarLayers(w: J, now: number) {
     frames };
 }
 /** iPad-style tile per kit widget: what each card needs to show its content without clipping. */
-const TILE_FOR: Record<string, "s" | "m" | "l" | "xl"> = { "stat-tile": "s", inbox: "l", docs: "m", favorites: "l", agenda: "l", "reply-queue": "l",
+const TILE_FOR: Record<string, "s" | "m" | "l" | "xl" | "tall" | "wide"> = { "stat-tile": "s", inbox: "l", docs: "m", favorites: "l", agenda: "l", "reply-queue": "l",
   "decision-queue": "l", sysscope: "xl", mesh: "l", fleet: "xl", radar: "l", projects: "l", quotas: "l", ask: "l", "iso-scene": "xl", devstream: "xl" };
 const SKINS = new Set(["beacon", "swamp"]);
 

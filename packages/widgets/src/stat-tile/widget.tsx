@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { defineWidget } from "../contract";
 
-const card = "h-full w-full min-w-56 rounded-[var(--bk-radius)] bg-bk-card p-4 border border-bk-line";
+const card = "h-full w-full rounded-[var(--bk-radius)] bg-bk-card p-4 border border-bk-line";
 
 export const StatTile = defineWidget({
   type: "stat-tile",

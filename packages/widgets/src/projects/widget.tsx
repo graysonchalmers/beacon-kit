@@ -46,7 +46,7 @@ export const Projects = defineWidget({
             className={`box-border w-full rounded-lg border border-bk-line bg-bk-bg px-2 py-1.5 text-bk-fg placeholder:text-bk-muted ${ring}`} />
           <div className="my-1 flex flex-wrap items-center justify-between gap-2">
             <select value={sort} onChange={(e) => setSort(e.target.value as Sort)} aria-label="Sort projects"
-              className={`rounded-md border border-bk-line bg-bk-bg p-1 text-[13px] text-bk-fg ${ring}`}>
+              className={`appearance-none rounded-md border border-bk-line bg-bk-bg p-1 text-[13px] text-bk-fg ${ring}`}>
               {Object.entries(SORTS).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
             </select>
             <a href={options.home} target="_blank" rel="noopener" className={`text-[13px] text-bk-accent underline ${ring}`}>All projects &amp; details ↗</a>

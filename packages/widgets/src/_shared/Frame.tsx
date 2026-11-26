@@ -24,7 +24,7 @@ export function Frame({ title, state, empty = "No data yet", children, className
         </h3>
         {actions}
       </header>
-      <div className="relative min-h-0 flex-1">
+      <div className="relative min-h-0 flex-1 overflow-auto">
         {state === "loading" && <div className="h-full min-h-16 w-full animate-pulse rounded bg-bk-raise" />}
         {state === "error" && <p role="alert" className="text-sm text-bk-danger">Couldn't load data</p>}
         {state === "empty" && <p className="text-sm text-bk-muted">{empty}</p>}

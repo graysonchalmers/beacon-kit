@@ -108,8 +108,8 @@ export function radarLayers(w: J, now: number) {
     frames };
 }
 /** iPad-style tile per kit widget: what each card needs to show its content without clipping. */
-const TILE_FOR: Record<string, "s" | "m" | "l" | "xl"> = { "stat-tile": "s", inbox: "l", docs: "m", favorites: "m", agenda: "l", "reply-queue": "l",
-  "decision-queue": "l", sysscope: "l", mesh: "l", fleet: "l", radar: "l", projects: "l", quotas: "l", ask: "l", "iso-scene": "xl", devstream: "xl" };
+const TILE_FOR: Record<string, "s" | "m" | "l" | "xl"> = { "stat-tile": "s", inbox: "l", docs: "m", favorites: "l", agenda: "l", "reply-queue": "l",
+  "decision-queue": "l", sysscope: "xl", mesh: "l", fleet: "xl", radar: "l", projects: "l", quotas: "l", ask: "l", "iso-scene": "xl", devstream: "xl" };
 const SKINS = new Set(["beacon", "swamp"]);
 
 /** /state -> board JSON (cards in the old layout order, packed 12 columns wide) + per-card data + skin. Unknown old types are skipped and listed. */

@@ -2,6 +2,7 @@ import { createContext, useContext, useRef, useState } from "react";
 import { z } from "zod";
 import { defineWidget } from "../contract";
 import { Frame } from "../_shared/Frame";
+import { gl } from "../_shared/Glyph";
 import { useAction, useSendTap, type TapState } from "../_shared/actions";
 import { celebrate, type Celebrate } from "../_shared/fx";
 
@@ -75,7 +76,7 @@ function InboxRow({ r, g, now, onDone }: { r: RowT; g: G; now: number; onDone: (
   const gr = r.groomer.replace(/^Groomer note\s*/, "");
   return (
     <div ref={a.ref} className={`flex flex-wrap items-center gap-2 rounded-lg px-1.5 py-1 transition-opacity ${a.cls} hover:bg-[color-mix(in_srgb,var(--bk-accent)_12%,transparent)]`}>
-      <span title={label} aria-label={label} className={`grid size-[26px] shrink-0 place-items-center rounded-full border text-xs ${r.kind === "Decide" && g === "you" ? "border-bk-accent text-bk-accent" : "border-bk-line text-bk-muted"}`}>{glyph}</span>
+      <span title={label} aria-label={label} className={`grid size-[26px] shrink-0 place-items-center rounded-full border text-xs ${r.kind === "Decide" && g === "you" ? "border-bk-accent text-bk-accent" : "border-bk-line text-bk-muted"}`}>{gl(glyph)}</span>
       <span className="min-w-0 flex-1 truncate text-[13px] text-bk-fg" title={r.title}>{head}</span>
       {tags.length > 0 && <span className="flex flex-wrap gap-1">{tags.map((t) => <i key={t} className="rounded-full bg-[color-mix(in_srgb,var(--bk-accent)_16%,transparent)] px-1.5 text-[11px] not-italic text-bk-muted">{t}</i>)}</span>}
       {g === "you" ? <button type="button" onClick={() => a.pick(-1)} title="Mark done" aria-label="Mark done" className={`${btn} grid size-[26px] place-items-center p-0 text-xs`}>✓</button>
@@ -112,7 +113,7 @@ function Body({ asks, rows, now }: { asks: AskT[]; rows: RowT[]; now: number }) 
     (e.currentTarget.parentElement?.children[j] as HTMLElement | undefined)?.focus();
   };
   return (
-    <div className="flex h-full flex-col gap-0.5 overflow-auto">
+    <div className="flex h-full max-h-[40rem] flex-col gap-0.5 overflow-auto">
       <div role="tablist" className="mb-1 flex flex-wrap gap-1">{GROUPS.map(([g, lab], i) => (
         <button key={g} role="tab" type="button" aria-selected={g === tab} tabIndex={g === tab ? 0 : -1} onClick={() => setTab(g)} onKeyDown={(e) => onKey(e, i)}
           className={`inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-0.5 text-[12.5px] font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-bk-accent ${g === tab ? "border-bk-accent text-bk-accent" : "border-bk-line bg-bk-raise text-bk-fg opacity-70"}`}>

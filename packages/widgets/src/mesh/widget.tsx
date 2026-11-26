@@ -2,6 +2,7 @@ import { useState, type ReactNode } from "react";
 import { z } from "zod";
 import { defineWidget } from "../contract";
 import { Frame } from "../_shared/Frame";
+import { gl } from "../_shared/Glyph";
 
 // Old Beacon "mesh": Util-Mesh machines (status dot + name), load per host, the overnight digest and recent alerts.
 // Sections are headed by a glyph only (words in the tooltip). A small card shows details only on rows that need eyes.
@@ -29,7 +30,7 @@ export const Mesh = defineWidget({
     const [big, setBig] = useState(false);
     const [picked, setPicked] = useState<string | null>(null);   // old card posted the tapped row to the brain; here it is local selection
     const compact = size[0] < 4;
-    const H4 = (g: string, tip: string) => <h4 title={tip} aria-label={tip} className="mb-1 text-[14px] leading-[1.2]"><span aria-hidden>{g}</span></h4>;
+    const H4 = (g: string, tip: string) => <h4 title={tip} aria-label={tip} className="mb-1 text-[14px] leading-[1.2]"><span aria-hidden>{gl(g)}</span></h4>;
     const Mx = ({ children }: { children: ReactNode }) => <div className="text-[12px] text-bk-muted">{children}</div>;
     const row = (lvl: Lv, tap: string, head: ReactNode, sub: ReactNode, title?: string) => (
       <button type="button" key={tap} title={title} aria-pressed={picked === tap} onClick={() => setPicked(picked === tap ? null : tap)}

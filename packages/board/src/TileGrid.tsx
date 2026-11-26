@@ -63,7 +63,8 @@ export function TileGrid({ items, gap = 12, minCell = 76 }: { items: { key: stri
       {(() => {
         const sizes = items.map(({ tile }): [number, number] => {
           let [cw, ch] = TILE[tile];
-          if (cw > cols) { ch = Math.round(ch * (cols / cw)) || ch; cw = cols; }   // XL on a phone becomes a full-width L
+          if (cw > cols) cw = cols;                      // wide tiles go full width on a phone, keeping their height
+          if (cols <= 4 && ch >= 4) ch = 6;              // phone: big cards get taller (one per row, like a stacked iPhone widget list)
           return [cw, ch];
         });
         const placed = pack(sizes, cols);

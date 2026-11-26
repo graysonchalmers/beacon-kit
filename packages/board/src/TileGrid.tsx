@@ -1,8 +1,8 @@
 import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
 
 /** iPad-style widget sizes on a square snap grid: S 2x2, M 4x2, L 4x4, XL 8x4, TALL 8x6 cells (TALL = XL for lists that need more rows). */
-export type Tile = "s" | "m" | "l" | "xl" | "tall";
-export const TILE: Record<Tile, [number, number]> = { s: [2, 2], m: [4, 2], l: [4, 4], xl: [8, 4], tall: [8, 6] };
+export type Tile = "s" | "m" | "l" | "xl" | "tall" | "wide";
+export const TILE: Record<Tile, [number, number]> = { s: [2, 2], m: [4, 2], l: [4, 4], xl: [8, 4], tall: [8, 6], wide: [8, 2] };
 
 /** Old free-form w x h (12-col grid) -> nearest tile class. */
 export function tileOf(w: number, h: number): Tile {

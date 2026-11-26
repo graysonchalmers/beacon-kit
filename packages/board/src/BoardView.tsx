@@ -50,7 +50,7 @@ export function BoardView({ board, data = {}, cols = 12, rowHeight = 64, editabl
         return { i: String(i), x: c.x, y: c.y, w: c.w, h: c.h, minW: def?.size.min[0], minH: def?.size.min[1], maxW: def?.size.max[0], maxH: def?.size.max[1] };
       }) }}>
       {cards.map((c, i) => (
-        <div key={i} className="relative">
+        <div key={i} className="relative h-full">
           <CardView type={c.type} options={c.options} live={data[i]} size={[c.w, c.h]} />
           {menu?.(i)}
         </div>

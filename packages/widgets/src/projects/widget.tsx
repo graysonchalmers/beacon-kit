@@ -2,6 +2,7 @@ import { useState } from "react";
 import { z } from "zod";
 import { defineWidget } from "../contract";
 import { Frame } from "../_shared/Frame";
+import { gl } from "../_shared/Glyph";
 
 // Old Beacon "projects": search box, sort select + "All projects & details" link, then up to 12 rows (emoji tile, name, nick, one-liner, globe link).
 const Project = z.object({ name: z.string(), nick: z.string().optional(), emoji: z.string().optional(), tags: z.string().optional(),
@@ -53,7 +54,7 @@ export const Projects = defineWidget({
           <div className="min-h-0 flex-1 overflow-y-auto">
             {hits.length ? hits.slice(0, 12).map((p) => (
               <div key={p.name} title={p.say || p.description} className="flex items-center gap-2.5 border-t border-bk-line py-1.5 [overflow-wrap:anywhere] first:border-t-0">
-                <span aria-hidden className="grid size-[34px] flex-none place-items-center bg-bk-raise text-xl">{tile(p)[0]}</span>
+                <span aria-hidden className="grid size-[34px] flex-none place-items-center bg-bk-raise text-xl">{gl(tile(p)[0], "20px")}</span>
                 <span className="min-w-0 flex-1">
                   <b>{tile(p)[1]}</b>{p.nick && <> <span className="text-[13px] text-bk-muted">{p.name}</span></>}
                   <span className="block truncate text-[13px] text-bk-muted">{p.say || p.description}</span>

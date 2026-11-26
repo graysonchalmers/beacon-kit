@@ -37,3 +37,6 @@ export function Glyph({ name, look = "pixel", className = "", size = "1.15em" }:
       strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" data-glyph={name} dangerouslySetInnerHTML={{ __html: LINE[name] }} />
   );
 }
+
+/** An icon slot that takes a glyph name or literal text/emoji: glyph names draw the old Beacon glyph. */
+export const gl = (x: string, size = "1.1em") => (isGlyph(x) ? <Glyph name={x} size={size} /> : x);

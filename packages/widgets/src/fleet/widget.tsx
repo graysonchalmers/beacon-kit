@@ -2,6 +2,7 @@ import { useState } from "react";
 import { z } from "zod";
 import { defineWidget } from "../contract";
 import { Frame } from "../_shared/Frame";
+import { gl } from "../_shared/Glyph";
 
 // Old Beacon "fleet" (fleet.js): one tile per machine with an up/down pip, CPU/RAM/(GPU)/DSK mini bars, a two-step
 // power row (arm, then confirm) and a GPU lease line. Power actions are local UI state here; a host wires onPower.
@@ -56,7 +57,7 @@ function Tile({ m, power, idle }: { m: M; power?: z.infer<typeof data>["power"];
       className={`min-w-0 rounded-sm border-2 border-bk-line bg-bk-bg shadow-[2px_2px_0_rgb(0_0_0/.55)] px-2 pb-[7px] pt-1.5 ${grey ? "opacity-55 grayscale" : m.state === "down" ? "opacity-80" : ""}`}>
       <div className="mb-1 flex items-center gap-1.5 text-[11px] uppercase tracking-[.06em]">
         <i className={`size-2.5 flex-none shadow-[0_0_0_2px_rgb(0_0_0/.5)] ${pip}`} />
-        <span aria-hidden className="text-[11px]">{g || m.id === "stealth" ? "📼" : "host"}</span>
+        <span aria-hidden className="text-[11px]">{g || m.id === "stealth" ? "📼" : gl("host")}</span>
         <b className="min-w-0 flex-1 truncate text-[13px]">{name}</b>
         {grey && <span className="flex-none bg-bk-raise px-1 text-[10px]" title={stateTip}>{m.state === "stale" ? age(m.age_s) : "?"}</span>}
         {m.state === "down" && <span className="flex-none bg-bk-raise px-1 text-[10px]">DOWN</span>}
@@ -88,7 +89,7 @@ export const Fleet = defineWidget({
   type: "fleet", family: "data", title: "Fleet",
   options: z.object({ title: z.string().default("Fleet") }),
   data,
-  size: { min: [2, 2], default: [3, 2], max: [6, 4] },
+  size: { min: [2, 2], default: [3, 2], max: [8, 6] },
   render: ({ options, data: d, state }) => {
     const l = d?.lease;
     return (

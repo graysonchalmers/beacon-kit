@@ -2,6 +2,7 @@ import { useState, type ReactNode } from "react";
 import { z } from "zod";
 import { defineWidget } from "../contract";
 import { Frame } from "../_shared/Frame";
+import { gl } from "../_shared/Glyph";
 
 // Old Beacon "quotas" (Tokens and quotas): auto-offload level pips, plan quota bars, Gemini API bars,
 // per-backend token sparklines (last 24 h) and local models. Read-only like the old card: every part has a tooltip.
@@ -26,7 +27,7 @@ const lvlOf = (p: number | null) => (p == null ? "" : p >= 85 ? "bad" : p >= 60 
 const META = "text-[12px] leading-[1.35]";
 
 function Head({ g, t, tip }: { g: string; t: string; tip: string }) {
-  return <h4 title={tip} className="mb-0.5 flex items-center gap-1.5 text-[14px] leading-[1.25] font-bold text-bk-fg"><span aria-hidden className="text-[13px]">{g}</span><span>{t}</span></h4>;
+  return <h4 title={tip} className="mb-0.5 flex items-center gap-1.5 text-[14px] leading-[1.25] font-bold text-bk-fg"><span aria-hidden className="text-[13px]">{gl(g)}</span><span>{t}</span></h4>;
 }
 function Row({ lvl, name, pct, val, tip, mid }: { lvl: L; name: string; pct?: number | null; val: string; tip: string; mid?: ReactNode }) {
   return (

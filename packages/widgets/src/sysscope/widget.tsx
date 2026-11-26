@@ -2,6 +2,7 @@ import { useState } from "react";
 import { z } from "zod";
 import { defineWidget } from "../contract";
 import { Frame } from "../_shared/Frame";
+import { gl } from "../_shared/Glyph";
 
 // Old Beacon "sysscope": the screensaver's probe rows (weather, alerts, temp, claude, queue, build, stealth, legion).
 // Each row: a level stripe on the left, glyph + name, a big reading (+ trend), a small line and optional detail lines.
@@ -22,7 +23,7 @@ export const SysScope = defineWidget({
   type: "sysscope", family: "data", title: "SysScope",
   options: z.object({ label: z.string().default("Envy"), icon: z.string().default("host") }),
   data: z.object({ rows: z.array(Probe) }),
-  size: { min: [2, 2], default: [3, 6], max: [4, 4] },
+  size: { min: [2, 2], default: [3, 4], max: [6, 6] },
   render: function SysScopeView({ options, data, state, size }) {
     const [big, setBig] = useState(false);
     const rows = data?.rows ?? [];
@@ -39,7 +40,7 @@ export const SysScope = defineWidget({
               <li key={r.key} tabIndex={0} aria-label={`${name}: ${r.big}${r.small ? ", " + r.small : ""}`}
                 className={`min-w-0 border-l-4 px-2.5 py-0.5 outline-none focus-visible:ring-2 focus-visible:ring-bk-accent ${STRIPE[r.level ?? "ok"]}`}>
                 <div title={name} className="text-[11px] font-semibold uppercase leading-[1.2] tracking-[.08em] text-bk-muted">
-                  <span aria-hidden>{GLYPH[r.key] ?? "•"}</span>{showName && <span className="ml-1">{name}</span>}
+                  <span aria-hidden>{gl(GLYPH[r.key] ?? "•")}</span>{showName && <span className="ml-1">{name}</span>}
                 </div>
                 <div className="text-[26px] font-bold leading-[1.15] tabular-nums text-bk-fg">{r.big}
                   {r.trend && <span title={r.trend === "▲" ? "rising" : "falling"} className="ml-1 align-middle text-[.55em] text-bk-muted">{r.trend}</span>}</div>

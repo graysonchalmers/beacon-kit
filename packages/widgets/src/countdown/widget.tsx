@@ -14,7 +14,7 @@ function Card({ label, endsAt, now0 }: { label: string; endsAt: number; now0?: n
   const left = endsAt - now;
   const at = new Date(Math.round(endsAt / 60000) * 60000).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
   return (
-    <section aria-label={label} className="flex h-full w-full min-w-48 flex-col gap-1.5 overflow-hidden rounded-[var(--bk-radius)] border border-bk-line bg-bk-card px-3 py-2.5">
+    <section aria-label={label} className="flex h-full w-full min-w-0 flex-col gap-1.5 overflow-hidden rounded-[var(--bk-radius)] border border-bk-line bg-bk-card px-3 py-2.5">
       <div className="flex items-start gap-3">
         <div role="timer" aria-live="off" className={`text-[44px] font-bold leading-none tabular-nums ${left <= 0 ? "text-bk-danger" : "text-bk-fg"}`}>{left <= 0 ? "Done" : fmt(left)}</div>
         <div className="min-w-0 flex-1">

@@ -55,7 +55,7 @@ function useAnswer(onGone: () => void, payload: (i: number) => Record<string, un
 }
 
 function AskCard({ d, onGone }: { d: AskT; onGone: () => void }) {
-  const a = useAnswer(onGone, (i) => ({ id: d.id, choice: d.options[i].label }));
+  const a = useAnswer(onGone, (i) => ({ id: d.id, choice: d.options[i].label, i }));
   return (
     <div ref={a.ref} className={`flex flex-col gap-1.5 rounded-[10px] border border-bk-line px-2.5 py-2 transition-opacity ${a.cls}`}>
       <h4 className="m-0 text-[15px] font-semibold text-bk-fg">{d.title}</h4>
@@ -69,7 +69,7 @@ function AskCard({ d, onGone }: { d: AskT; onGone: () => void }) {
 }
 
 function InboxRow({ r, g, now, onDone }: { r: RowT; g: G; now: number; onDone: () => void }) {
-  const a = useAnswer(onDone, (i) => (i < 0 ? { id: r.id, done: true } : { id: r.id, choice: r.options[i].label }), "inbox");
+  const a = useAnswer(onDone, (i) => (i < 0 ? { id: r.id, done: true } : { id: r.id, choice: r.options[i].label, i }), "inbox");
   const glyph = g === "done" ? "✓" : g === "claude" ? "timer" : KIND_GLYPH[r.kind] ?? "☐";
   const label = g === "you" ? r.kind : g === "claude" ? "Claude is on it" : "Done";
   const [head, ...rest] = r.title.split(": "), tags = rest.length ? rest.join(": ").split(/,\s*/) : [];

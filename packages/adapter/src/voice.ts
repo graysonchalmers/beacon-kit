@@ -128,3 +128,18 @@ export function toBoard(s: VoiceSnapshot, now = Date.now() / 1000): { board: Boa
   const skin = SKINS.has(s.state.skin?.name) ? s.state.skin.name : "beacon";
   return { board: { board: s.state.layout?.name || "Beacon", cards }, data, skin, skipped };
 }
+
+/** Card taps -> the old voice.py endpoints (same bodies widgets.js posts), for <ActionsContext.Provider value={voiceActions(base)}>.
+ *  answer {id,i} -> POST /decision {id, choice:i}; inbox (Notion row) {id,i} -> /decision {id:"n:"+id, choice:i}, {id,done} -> /notion-done. */
+export function voiceActions(base = "", post: typeof fetch = fetch) {
+  const send = (path: string, body: unknown) =>
+    post(base + path, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }).then((r) => r.ok, () => false);
+  return async (action: string, p: Record<string, unknown>): Promise<boolean> => {
+    const id = String(p.id ?? ""), i = typeof p.i === "number" ? p.i : undefined;
+    if (!id) return false;
+    if (action === "answer" && i !== undefined) return send("/decision", { id, choice: i });
+    if (action === "inbox" && p.done) return send("/notion-done", { id });
+    if (action === "inbox" && i !== undefined) return send("/decision", { id: "n:" + id, choice: i });
+    return false;   // unknown action: refuse, so the card shows "Didn't go through" instead of a fake success
+  };
+}

@@ -57,19 +57,37 @@ export function TileGrid({ items, gap = 12, minCell = 76 }: { items: { key: stri
     return () => ro.disconnect();
   }, []);
   const cols = colsFor(w || 1024, minCell, gap), cell = w ? (w - (cols - 1) * gap) / cols : minCell;
+  // Fit to content: after a layout, any card whose content is taller than its tile gets extra rows (once per column count).
+  const [extra, setExtra] = useState<{ cols: number; rows: Record<string, number> }>({ cols: 0, rows: {} });
+  useLayoutEffect(() => {
+    const el = ref.current; if (!el || !w || extra.cols === cols) return;
+    const t = setTimeout(() => {
+      const rows: Record<string, number> = {};
+      el.querySelectorAll<HTMLElement>("[data-key]").forEach((tile) => {
+        let over = 0;
+        tile.querySelectorAll<HTMLElement>("*").forEach((e) => { const s = getComputedStyle(e).overflowY;
+          if ((s === "auto" || s === "scroll") && e.clientHeight > 40) over = Math.max(over, e.scrollHeight - e.clientHeight); });
+        const n = Math.min(6, Math.ceil(Math.max(0, over - 4) / (cell + gap)));
+        if (n > 0) rows[tile.dataset.key!] = n;
+      });
+      setExtra({ cols, rows });
+    }, 1500);   // let data and images settle first
+    return () => clearTimeout(t);
+  }, [w, cols, cell, gap, extra.cols, items.length]);
   return (
     <div ref={ref} data-cols={cols} className="grid w-full"
       style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`, gridAutoRows: `${cell}px`, gridAutoFlow: "row dense", gap }}>
       {(() => {
-        const sizes = items.map(({ tile }): [number, number] => {
+        const sizes = items.map(({ key, tile }): [number, number] => {
           let [cw, ch] = TILE[tile];
           if (cw > cols) cw = cols;                      // wide tiles go full width on a phone, keeping their height
           if (cols <= 4 && ch >= 4) ch = 6;              // phone: big cards get taller (one per row, like a stacked iPhone widget list)
+          if (extra.cols === cols) ch += extra.rows[key] ?? 0;
           return [cw, ch];
         });
         const placed = pack(sizes, cols);
         return items.map(({ key, tile, node }, k) => { const p = placed[k];
-          return <div key={key} data-tile={tile} className="relative min-w-0" style={{ gridColumn: `${p.x + 1} / span ${p.w}`, gridRow: `${p.y + 1} / span ${p.h}` }}>{node}</div>; });
+          return <div key={key} data-key={key} data-tile={tile} className="relative min-w-0" style={{ gridColumn: `${p.x + 1} / span ${p.w}`, gridRow: `${p.y + 1} / span ${p.h}` }}>{node}</div>; });
       })()}
     </div>
   );

@@ -18,6 +18,29 @@ export function colsFor(width: number, minCell = 76, gap = 12) {
   return Math.max(4, n - (n % 4 === 0 ? 0 : n % 2));
 }
 
+type Placed = { x: number; y: number; w: number; h: number };
+
+/** First-fit pack (same order as CSS dense), then grow tiles into any holes so the board has no gaps. */
+export function pack(sizes: [number, number][], cols: number): Placed[] {
+  const g: number[][] = []; const row = (y: number) => (g[y] ??= Array(cols).fill(-1));
+  const free = (x: number, y: number, w: number, h: number) => { for (let j = y; j < y + h; j++) for (let i = x; i < x + w; i++) if (i >= cols || row(j)[i] !== -1) return false; return true; };
+  const mark = (k: number, p: Placed) => { for (let j = p.y; j < p.y + p.h; j++) for (let i = p.x; i < p.x + p.w; i++) row(j)[i] = k; };
+  const out: Placed[] = sizes.map(([w, h], k) => {
+    for (let y = 0; ; y++) for (let x = 0; x + w <= cols; x++) if (free(x, y, w, h)) { const p = { x, y, w, h }; mark(k, p); return p; }
+  });
+  const H = Math.max(0, ...out.map(p => p.y + p.h));
+  for (let changed = true; changed;) {
+    changed = false;
+    out.forEach((p, k) => {
+      if (p.x + p.w < cols && free(p.x + p.w, p.y, 1, p.h)) {   // grow right into a hole column
+        const ext = 2 <= cols - p.x - p.w && free(p.x + p.w, p.y, 2, p.h) ? 2 : 1; mark(k, { ...p, x: p.x + p.w, w: ext }); p.w += ext; changed = true; return;
+      }
+      if (p.y + p.h < H && free(p.x, p.y + p.h, p.w, 1)) { mark(k, { ...p, y: p.y + p.h, h: 1 }); p.h += 1; changed = true; }
+    });
+  }
+  return out;
+}
+
 /**
  * Packs tiles with CSS grid `dense` flow: every span is even and the column count is even, so the board fills
  * row by row with no gaps and no empty tail, and reflows on resize (phone 4 cols: L is full width, XL becomes L).
@@ -34,11 +57,16 @@ export function TileGrid({ items, gap = 12, minCell = 76 }: { items: { key: stri
   return (
     <div ref={ref} data-cols={cols} className="grid w-full"
       style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`, gridAutoRows: `${cell}px`, gridAutoFlow: "row dense", gap }}>
-      {items.map(({ key, tile, node }) => {
-        let [cw, ch] = TILE[tile];
-        if (cw > cols) { ch = Math.round(ch * (cols / cw)) || ch; cw = cols; }   // XL on a phone becomes a full-width L
-        return <div key={key} data-tile={tile} className="relative min-w-0" style={{ gridColumn: `span ${cw}`, gridRow: `span ${ch}` }}>{node}</div>;
-      })}
+      {(() => {
+        const sizes = items.map(({ tile }): [number, number] => {
+          let [cw, ch] = TILE[tile];
+          if (cw > cols) { ch = Math.round(ch * (cols / cw)) || ch; cw = cols; }   // XL on a phone becomes a full-width L
+          return [cw, ch];
+        });
+        const placed = pack(sizes, cols);
+        return items.map(({ key, tile, node }, k) => { const p = placed[k];
+          return <div key={key} data-tile={tile} className="relative min-w-0" style={{ gridColumn: `${p.x + 1} / span ${p.w}`, gridRow: `${p.y + 1} / span ${p.h}` }}>{node}</div>; });
+      })()}
     </div>
   );
 }

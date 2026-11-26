@@ -77,7 +77,7 @@ function InboxRow({ r, g, now, onDone }: { r: RowT; g: G; now: number; onDone: (
   return (
     <div ref={a.ref} className={`flex flex-wrap items-center gap-2 rounded-lg px-1.5 py-1 transition-opacity ${a.cls} hover:bg-[color-mix(in_srgb,var(--bk-accent)_12%,transparent)]`}>
       <span title={label} aria-label={label} className={`grid size-[26px] shrink-0 place-items-center rounded-full border text-xs ${r.kind === "Decide" && g === "you" ? "border-bk-accent text-bk-accent" : "border-bk-line text-bk-muted"}`}>{gl(glyph)}</span>
-      <span className="min-w-0 flex-1 truncate text-[13px] text-bk-fg" title={r.title}>{head}</span>
+      <span className="min-w-0 flex-1 line-clamp-2 text-[13px] text-bk-fg" title={r.title}>{head}</span>
       {tags.length > 0 && <span className="flex flex-wrap gap-1">{tags.map((t) => <i key={t} className="rounded-full bg-[color-mix(in_srgb,var(--bk-accent)_16%,transparent)] px-1.5 text-[11px] not-italic text-bk-muted">{t}</i>)}</span>}
       {g === "you" ? <button type="button" onClick={() => a.pick(-1)} title="Mark done" aria-label="Mark done" className={`${btn} grid size-[26px] place-items-center p-0 text-xs`}>✓</button>
         : r.status && <span className="shrink-0 text-[11px] text-bk-muted">{r.status}</span>}

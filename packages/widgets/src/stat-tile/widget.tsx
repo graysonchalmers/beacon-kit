@@ -9,6 +9,7 @@ function Spark({ v }: { v: number[] }) {
     <polygon points={`0,${H} ${pts} ${W},${H}`} fill="currentColor" opacity=".15" /><polyline points={pts} fill="none" stroke="currentColor" strokeWidth="1.5" vectorEffect="non-scaling-stroke" /></svg>;
 }
 
+const span = (s: number) => (s < 3600 ? `${Math.round(s / 60)} min` : s < 86400 ? `${Math.round(s / 3600)} h` : `${Math.round(s / 86400)} d`);
 const card = "flex h-full flex-col w-full rounded-[var(--bk-radius)] bg-bk-card p-4 border border-bk-line";
 
 export const StatTile = defineWidget({
@@ -16,7 +17,7 @@ export const StatTile = defineWidget({
   family: "data",
   title: "Stat tile",
   options: z.object({ label: z.string(), unit: z.string().optional() }),
-  data: z.object({ value: z.number(), delta: z.number().optional(), hist: z.array(z.number()).optional(), caption: z.string().optional() }),
+  data: z.object({ value: z.number(), delta: z.number().optional(), hist: z.array(z.number()).optional(), every: z.number().optional(), caption: z.string().optional() }),
   size: { min: [2, 1], default: [3, 2], max: [6, 4] },
   render: ({ options, data, state }) => {
     const label = <div className="text-xs uppercase tracking-wide text-bk-muted">{options.label}</div>;
@@ -33,8 +34,11 @@ export const StatTile = defineWidget({
         <div className="mt-1 text-3xl font-semibold text-bk-fg">
           {data.value}<span className="ml-1 text-base text-bk-muted">{options.unit}</span>
         </div>
-        {data.caption && <div className="mt-1 line-clamp-2 text-sm text-bk-muted">{data.caption}</div>}
-        {data.hist && data.hist.length > 1 && <Spark v={data.hist} />}
+        {options.unit === "%" && <div className="mt-2 h-2 rounded-full bg-bk-raise"><i className="block h-full rounded-full bg-bk-accent" style={{ width: `${Math.max(0, Math.min(100, data.value))}%` }} /></div>}
+        {data.caption && <div className="mt-2 flex flex-wrap gap-1">{data.caption.split(/\s*[·|•]\s*|,\s+/).filter(Boolean).slice(0, 6).map((c, i) =>
+          <span key={i} className="rounded-full border border-bk-line bg-bk-raise px-2 py-0.5 text-xs text-bk-fg">{c}</span>)}</div>}
+        {data.hist && data.hist.length > 1 && <div className="mt-auto"><Spark v={data.hist} />
+          {data.every && <div className="flex justify-between text-[10px] text-bk-muted"><span>{span(data.hist.length * data.every)} ago</span><span>now</span></div>}</div>}
         {data.delta !== undefined && (
           <div className={`mt-1 text-sm ${up ? "text-bk-ok" : "text-bk-accent"}`}>{up ? "▲" : "▼"} {Math.abs(data.delta)}</div>
         )}

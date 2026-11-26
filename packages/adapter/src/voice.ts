@@ -38,7 +38,7 @@ export const MAP: Record<string, Map> = {
     data: (s, _w, now) => s.agenda && { mail: (s.agenda.mail ?? []).map((m: J, i: number) => ({ id: String(i), from: m.from, subject: m.subject, age: ago(m.t, now), link: url(m.link) })) } },
   replies: { type: "reply-queue", size: [3, 5], options: (w) => ({ label: w.title || "Proposed replies" }),
     data: (s, _w, now) => s.replies && { total: s.replies.total, items: (s.replies.items ?? []).map((r: J) => ({ id: String(r.id), name: r.name, channel: r.channel,
-      preview: r.ask || r.body || "", age: ago(r.t, now), draft: r.draft === "ready" || r.draft === "approved" ? r.draft : undefined, link: url(r.link) })) } },
+      preview: r.body || r.ask || "", age: r.t ? ago(r.t, now) : undefined, draft: r.draft === "ready" || r.draft === "approved" ? r.draft : undefined, link: url(r.link) })) } },
   notion: { type: "decision-queue", size: [3, 8], options: (w) => ({ title: w.title || "Notion Inbox", icon: "db" }),
     data: (s) => s.notion && { asks: [], rows: (s.notion.rows ?? []).map((r: J) => ({ id: r.id, group: ["you", "claude", "done"].includes(r.group) ? r.group : "you",
       kind: r.kind || "Do", status: r.status || "", title: r.title, url: r.url || "", why: r.why || "", groomer: r.groomer || "",
@@ -49,12 +49,21 @@ export const MAP: Record<string, Map> = {
       status: d.status === "answered" ? "answered" : "pending", options: (d.options ?? []).map((o: J) => ({ label: o.label, hint: o.hint || "" })), links: d.links ?? [] })) } },
   docs: { type: "docs", size: [3, 4], options: (w) => ({ label: w.title || "Docs" }), data: (s) => s.docs && { links: s.docs } },
   iso: { type: "iso-scene", size: [6, 3], options: (w) => ({ label: w.title || "Agents & Machines" }),
-    data: (s) => { const h = s.state.iso?.hosts; return h && { machines: Object.entries(h).map(([id, m]: [string, any]) => ({ id, name: id[0].toUpperCase() + id.slice(1),
-      up: !!m && m.state !== "offline", mem: m?.mem ?? undefined, temp: m?.temp ?? undefined, cpu: m?.cpu ?? undefined, disk: m?.disk ?? undefined, jobs: (m?.jobs ?? []).map((j: J, i: number) => ({ id: `${id}${i}`, say: j.say || j.name, mood: MOOD[j.state] ?? "idle" })) })) }; } },
+    data: (s) => { const iso = s.state.iso; if (!iso) return undefined; const h = iso.hosts ?? {}, off = { state: "idle" };
+      const n = (x: unknown) => (typeof x === "number" ? x : undefined);
+      const jobs = (id: string, list: J[]) => list.filter(Boolean).map((j: J, i: number) => ({ id: `${id}${i}`, say: [j.name, j.say].filter(Boolean).join(": ") || undefined, mood: MOOD[j.state] ?? "idle" }));
+      // Old Beacon (view.html HSIso): three live islands; Envy carries the voice server, Beacon and every agent; Moby + Harbor are a compact strip.
+      const isl = (id: string, name: string, m: J, js: J[]) => ({ id, name, up: m.state !== "offline", asleep: m.state === "sleeping", say: m.say || undefined,
+        cpu: n(m.cpu), mem: n(m.mem), disk: n(m.disk), temp: n(m.temp), jobs: jobs(id, js) });
+      const envy = { ...(iso.server ?? {}), ...(h.envy ?? {}) };
+      const machines = [isl("envy", "Envy", envy, [...(iso.agents ?? [])]), isl("legion", "Legion", h.legion ?? off, h.legion?.jobs ?? []), isl("stealth", "Stealth", h.stealth ?? off, h.stealth?.jobs ?? [])];
+      const servers = (["moby", "harbor"] as const).filter((k) => h[k]).map((k) => { const m = h[k];
+        return { name: k[0].toUpperCase() + k.slice(1), up: m.state !== "offline" && m.level !== "bad", note: m.say || undefined, cpu: n(m.cpu), mem: n(m.mem), disk: n(m.disk), ago: typeof m.ago === "string" ? m.ago : undefined }; });
+      return { machines, servers }; } },
   tile: { type: "stat-tile", size: [2, 2], options: (w) => { const u = String(w.value ?? "").replace(/^\s*-?[\d.,]+\s*/, "").trim(); return { label: w.title || "Tile", ...(u ? { unit: u.slice(0, 8) } : {}) }; },
     data: (_s, w) => { const v = parseFloat(String(w.value ?? "")); if (!Number.isFinite(v)) return undefined;
       const hist = Array.isArray(w.hist) ? (w.hist as unknown[]).map((x) => parseFloat(String(Array.isArray(x) ? x[1] : x))).filter(Number.isFinite) : [];
-      return { value: v, ...(hist.length > 1 ? { hist: hist.slice(-48) } : {}), ...(w.caption ? { caption: String(w.caption).slice(0, 120) } : {}) }; } },
+      return { value: v, ...(hist.length > 1 ? { hist: hist.slice(-48), ...(typeof w.every === "number" ? { every: w.every } : {}) } : {}), ...(w.caption ? { caption: String(w.caption).slice(0, 120) } : {}) }; } },
   sysscope: { type: "sysscope", size: [4, 4], options: (w) => ({ label: w.title || "Envy" }),
     data: (s, w) => s.sysscope && { rows: ((w.rows as string[] | undefined) ?? Object.keys(s.sysscope)).filter((k) => s.sysscope![k]).map((k) => { const p = s.sysscope![k];
       return { key: k, big: String(p.big ?? ""), small: p.small || undefined, lines: Array.isArray(p.lines) ? p.lines.map(String) : [], level: lvl3(p.level),

@@ -58,7 +58,8 @@ export const MAP: Record<string, Map> = {
   mesh: { type: "mesh", size: [4, 3], options: (w) => ({ label: w.title || "Mesh" }),
     data: (s) => s.mesh && { machines: (s.mesh.machines ?? []).map((m: J) => ({ name: m.name, level: lvl(m.level), down: (m.down ?? []).map(String), checks: m.checks ?? 1, recovered: m.recovered || undefined })),
       harbor: s.mesh.harbor?.at != null ? { at: String(s.mesh.harbor.at), down: String(s.mesh.harbor.down ?? "") } : undefined,
-      load: Object.fromEntries(Object.entries(s.mesh.load ?? {}).filter(([, v]: [string, any]) => typeof v?.load1 === "number" && typeof v?.free_mb === "number")),
+      load: Object.fromEntries(Object.entries(s.mesh.load ?? {}).filter(([, v]: [string, any]) => typeof v?.load1 === "number" && typeof v?.free_mb === "number")
+        .map(([k, v]: [string, any]) => [k, Object.fromEntries(Object.entries(v).filter(([, x]) => x !== null))])),   // voice.py sends null for "no GPU lease"
       overnight: s.mesh.overnight, alerts: (s.mesh.alerts ?? []).map((a: J) => ({ at: String(a.at ?? ""), source: String(a.source ?? ""), text: String(a.text ?? ""), action: a.action || undefined })) } },
   fleet: { type: "fleet", size: [4, 3], options: (w) => ({ title: w.title || "Fleet" }),
     data: (s) => s.fleet && { machines: (s.fleet.machines ?? []).map((m: J) => ({ id: m.id, state: ["up", "down", "stale"].includes(m.state) ? m.state : "unknown", level: lvl(m.level),

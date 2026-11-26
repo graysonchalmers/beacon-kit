@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import { Board } from "./schema";
+import { TileGrid, tileOf, TILE } from "./TileGrid";
 import { registry } from "../../widgets/src/registry";
 import type { WidgetState } from "../../widgets/src/contract";
 
@@ -42,6 +43,10 @@ export function BoardView({ board, data = {}, cols = 12, rowHeight = 64, editabl
   const parsed = useMemo(() => Board.safeParse(board), [board]);
   if (!parsed.success) return <ErrorCard msg={`Invalid board: ${parsed.error.issues[0]?.message}`} />;
   const cards = parsed.data.cards;
+  if (!editable) {   // calm board: iPad-style tiles that always pack (Arrange mode keeps the free grid below)
+    return <TileGrid items={cards.map((c, i) => { const t = c.size ?? tileOf(c.w, c.h);
+      return { key: String(i), tile: t, node: <><CardView type={c.type} options={c.options} live={data[i]} size={TILE[t]} />{menu?.(i)}</> }; })} />;
+  }
   return (
     <Grid className="layout" breakpoints={{ lg: 768, xs: 0 }} cols={{ lg: cols, xs: 1 }} rowHeight={rowHeight} margin={[12, 12]} draggableHandle="h3" isDraggable={editable} isResizable={editable}
       onDragStop={(l) => onLayout?.(l)} onResizeStop={(l) => onLayout?.(l)}

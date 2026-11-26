@@ -107,6 +107,9 @@ export function radarLayers(w: J, now: number) {
     clouds: w.style?.clouds === 0 ? undefined : `https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/GOES-East_ABI_GeoColor/default/${ct}:00Z/GoogleMapsCompatible_Level7/${Math.min(z, 7)}/${y >> Math.max(0, z - 7)}/${x >> Math.max(0, z - 7)}.png`,
     frames };
 }
+/** iPad-style tile per kit widget: what each card needs to show its content without clipping. */
+const TILE_FOR: Record<string, "s" | "m" | "l" | "xl"> = { "stat-tile": "s", inbox: "l", docs: "m", favorites: "l", agenda: "l", "reply-queue": "l",
+  "decision-queue": "l", sysscope: "xl", mesh: "l", fleet: "xl", radar: "l", projects: "l", quotas: "l", ask: "l", "iso-scene": "xl", devstream: "xl" };
 const SKINS = new Set(["beacon", "swamp"]);
 
 /** /state -> board JSON (cards in the old layout order, packed 12 columns wide) + per-card data + skin. Unknown old types are skipped and listed. */
@@ -120,7 +123,7 @@ export function toBoard(s: VoiceSnapshot, now = Date.now() / 1000): { board: Boa
     const lim = registry[m.type as keyof typeof registry]?.size, cl = (v: number, i: 0 | 1) => (lim ? Math.min(lim.max[i], Math.max(lim.min[i], v)) : v);
     const cw = cl(m.size[0], 0), ch = cl(m.size[1], 1);   // inside the widget's own min/max, so the grid never fights it if (x + cw > 12) { x = 0; y += rowH; rowH = 0; }
     data[cards.length] = (() => { if (!m.data) return {}; try { const d = m.data(s, w, now); return d === undefined ? { state: "loading" as const } : { data: d }; } catch { return { state: "error" as const }; } })();
-    cards.push({ type: m.type, x, y, w: cw, h: ch, options: m.options(w) }); x += cw; rowH = Math.max(rowH, ch);
+    cards.push({ type: m.type, x, y, w: cw, h: ch, size: TILE_FOR[m.type], options: m.options(w) }); x += cw; rowH = Math.max(rowH, ch);
   }
   const skin = SKINS.has(s.state.skin?.name) ? s.state.skin.name : "beacon";
   return { board: { board: s.state.layout?.name || "Beacon", cards }, data, skin, skipped };

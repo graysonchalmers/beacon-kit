@@ -94,7 +94,7 @@ export const Fleet = defineWidget({
     const l = d?.lease;
     return (
       <Frame className="!p-3" title={options.title ?? "Fleet"} icon="host" state={state === "ready" && !d?.machines.length ? "empty" : state} empty="Reading the fleet…">
-        <div className="grid h-full min-h-0 gap-1.5 overflow-y-auto text-[12px] font-semibold leading-[1.3]">
+        <div className="grid h-full min-h-0 content-start gap-1.5 overflow-y-auto text-[12px] font-semibold leading-[1.3]">
           <div className="grid gap-1.5 [grid-template-columns:repeat(auto-fit,minmax(150px,1fr))]">
             {d?.machines.map((m) => <Tile key={m.id} m={m} power={d.power} idle={!!d.power?.idle.includes(m.id)} />)}
           </div>

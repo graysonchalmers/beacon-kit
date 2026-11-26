@@ -15,7 +15,7 @@ export function Frame({ title, state, empty = "No data yet", children, className
 }) {
   return (
     <section aria-label={title} aria-busy={state === "loading"}
-      className={`bk-card flex h-full w-full min-w-48 overflow-hidden flex-col gap-2 rounded-[var(--bk-radius)] border border-bk-line bg-bk-card p-[var(--bk-card-pad,16px)] ${className}`}>
+      className={`bk-card flex h-full w-full min-w-0 overflow-hidden flex-col gap-2 rounded-[var(--bk-radius)] border border-bk-line bg-bk-card p-[var(--bk-card-pad,16px)] ${className}`}>
       <header className="bk-head flex min-h-7 items-center gap-2">
         {icon && <span aria-hidden className="grid size-7 shrink-0 place-items-center rounded-md bg-bk-raise text-sm">{isGlyph(icon) ? <Glyph name={icon} size="18px" /> : icon}</span>}
         <h3 className="min-w-0 flex-1 truncate" style={{ fontSize: "var(--bk-title-size)", fontWeight: "var(--bk-title-weight)" as never,

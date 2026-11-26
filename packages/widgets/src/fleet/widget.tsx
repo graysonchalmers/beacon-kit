@@ -89,7 +89,7 @@ export const Fleet = defineWidget({
   type: "fleet", family: "data", title: "Fleet",
   options: z.object({ title: z.string().default("Fleet") }),
   data,
-  size: { min: [2, 2], default: [3, 2], max: [6, 4] },
+  size: { min: [2, 2], default: [3, 2], max: [8, 6] },
   render: ({ options, data: d, state }) => {
     const l = d?.lease;
     return (

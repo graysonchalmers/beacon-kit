@@ -134,7 +134,7 @@ export const DecisionQueue = defineWidget({
     /** ISO date used to age groomer notes; defaults to now. */ now: z.string().optional(),
     /** Old card setting "Celebrate when you answer". */ celebrate: z.enum(["off", "flash", "sparkle", "fireworks"]).optional() }),
   data: z.object({ asks: z.array(Ask).default([]), rows: z.array(Row).default([]) }),
-  size: { min: [2, 3], default: [3, 6], max: [6, 6] },
+  size: { min: [2, 3], default: [3, 6], max: [6, 10] },
   render: ({ options, data, state }) => {
     const asks = data?.asks ?? [], rows = data?.rows ?? [];
     const now = options.now ? Date.parse(options.now) : Date.now();

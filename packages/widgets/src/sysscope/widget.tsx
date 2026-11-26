@@ -23,7 +23,7 @@ export const SysScope = defineWidget({
   type: "sysscope", family: "data", title: "SysScope",
   options: z.object({ label: z.string().default("Envy"), icon: z.string().default("host") }),
   data: z.object({ rows: z.array(Probe) }),
-  size: { min: [2, 2], default: [3, 6], max: [4, 4] },
+  size: { min: [2, 2], default: [3, 4], max: [6, 6] },
   render: function SysScopeView({ options, data, state, size }) {
     const [big, setBig] = useState(false);
     const rows = data?.rows ?? [];

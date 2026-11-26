@@ -25,7 +25,7 @@ export const Mesh = defineWidget({
   type: "mesh", family: "data", title: "Mesh",
   options: z.object({ label: z.string().default("Mesh"), icon: z.string().default("host") }),
   data: Data,
-  size: { min: [2, 2], default: [3, 4], max: [6, 4] },
+  size: { min: [2, 2], default: [3, 4], max: [8, 8] },
   render: function MeshView({ options, data: d, state, size }) {
     const [big, setBig] = useState(false);
     const [picked, setPicked] = useState<string | null>(null);   // old card posted the tapped row to the brain; here it is local selection

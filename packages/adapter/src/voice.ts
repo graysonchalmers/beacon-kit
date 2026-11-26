@@ -3,6 +3,7 @@
 // voice.py binds to localhost: run the kit app on the same machine, or proxy these paths to it.
 import type { Board } from "../../board/src/schema";
 import type { WidgetState } from "../../widgets/src/contract";
+import { registry } from "../../widgets/src/registry";
 
 type J = Record<string, any>;
 export type VoiceSnapshot = { state: J; agenda?: J; decisions?: J; notion?: J; replies?: J; docs?: J[];
@@ -116,7 +117,8 @@ export function toBoard(s: VoiceSnapshot, now = Date.now() / 1000): { board: Boa
   let x = 0, y = 0, rowH = 0;
   for (const w of [...ws].sort((a, b) => rank(a) - rank(b))) {
     const m = MAP[w.type]; if (!m) { skipped.push(w.type); continue; }
-    const [cw, ch] = m.size; if (x + cw > 12) { x = 0; y += rowH; rowH = 0; }
+    const lim = registry[m.type as keyof typeof registry]?.size, cl = (v: number, i: 0 | 1) => (lim ? Math.min(lim.max[i], Math.max(lim.min[i], v)) : v);
+    const cw = cl(m.size[0], 0), ch = cl(m.size[1], 1);   // inside the widget's own min/max, so the grid never fights it if (x + cw > 12) { x = 0; y += rowH; rowH = 0; }
     data[cards.length] = (() => { if (!m.data) return {}; try { const d = m.data(s, w, now); return d === undefined ? { state: "loading" as const } : { data: d }; } catch { return { state: "error" as const }; } })();
     cards.push({ type: m.type, x, y, w: cw, h: ch, options: m.options(w) }); x += cw; rowH = Math.max(rowH, ch);
   }

@@ -11,7 +11,7 @@ export const ReplyQueue = defineWidget({
   type: "reply-queue", family: "list", title: "Reply queue",
   options: z.object({ label: z.string().default("Proposed replies"), onRefresh: z.function().returns(z.any()).optional() }),
   data: z.object({ items: z.array(Reply), total: z.number().int().nonnegative().optional() }),
-  size: { min: [2, 2], default: [4, 3], max: [6, 4] },
+  size: { min: [2, 2], default: [4, 3], max: [6, 6] },
   render: function ReplyQueueView({ options, data, state }) {
     const [big, setBig] = useState(false);
     const [status, setStatus] = useState("");

@@ -50,9 +50,11 @@ export const MAP: Record<string, Map> = {
   docs: { type: "docs", size: [3, 4], options: (w) => ({ label: w.title || "Docs" }), data: (s) => s.docs && { links: s.docs } },
   iso: { type: "iso-scene", size: [6, 3], options: (w) => ({ label: w.title || "Agents & Machines" }),
     data: (s) => { const h = s.state.iso?.hosts; return h && { machines: Object.entries(h).map(([id, m]: [string, any]) => ({ id, name: id[0].toUpperCase() + id.slice(1),
-      up: !!m && m.state !== "offline", mem: m?.mem, temp: m?.temp, jobs: (m?.jobs ?? []).map((j: J, i: number) => ({ id: `${id}${i}`, say: j.say || j.name, mood: MOOD[j.state] ?? "idle" })) })) }; } },
+      up: !!m && m.state !== "offline", mem: m?.mem ?? undefined, temp: m?.temp ?? undefined, cpu: m?.cpu ?? undefined, disk: m?.disk ?? undefined, jobs: (m?.jobs ?? []).map((j: J, i: number) => ({ id: `${id}${i}`, say: j.say || j.name, mood: MOOD[j.state] ?? "idle" })) })) }; } },
   tile: { type: "stat-tile", size: [2, 2], options: (w) => { const u = String(w.value ?? "").replace(/^\s*-?[\d.,]+\s*/, "").trim(); return { label: w.title || "Tile", ...(u ? { unit: u.slice(0, 8) } : {}) }; },
-    data: (_s, w) => { const v = parseFloat(String(w.value ?? "")); return Number.isFinite(v) ? { value: v } : undefined; } },
+    data: (_s, w) => { const v = parseFloat(String(w.value ?? "")); if (!Number.isFinite(v)) return undefined;
+      const hist = Array.isArray(w.hist) ? (w.hist as unknown[]).map((x) => parseFloat(String(Array.isArray(x) ? x[1] : x))).filter(Number.isFinite) : [];
+      return { value: v, ...(hist.length > 1 ? { hist: hist.slice(-48) } : {}), ...(w.caption ? { caption: String(w.caption).slice(0, 120) } : {}) }; } },
   sysscope: { type: "sysscope", size: [4, 4], options: (w) => ({ label: w.title || "Envy" }),
     data: (s, w) => s.sysscope && { rows: ((w.rows as string[] | undefined) ?? Object.keys(s.sysscope)).filter((k) => s.sysscope![k]).map((k) => { const p = s.sysscope![k];
       return { key: k, big: String(p.big ?? ""), small: p.small || undefined, lines: Array.isArray(p.lines) ? p.lines.map(String) : [], level: lvl3(p.level),

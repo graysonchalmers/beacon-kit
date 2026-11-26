@@ -16,7 +16,7 @@ import readPng from "./assets/frog_read.png";
 // with the old pxl atlases (assets/, GameKit iso-window build). Not yet ported: campfire (CPU), rain/puddles (disk), Stealth dock + boat.
 const Job = z.object({ id: z.string(), say: z.string().optional(), mood: z.enum(["idle", "work", "think", "sad", "sleep", "read"]).default("idle") });
 const Machine = z.object({ id: z.string(), name: z.string(), up: z.boolean().default(true), jobs: z.array(Job).default([]),
-  mem: z.number().optional(), temp: z.number().optional() });
+  mem: z.number().optional(), temp: z.number().optional(), cpu: z.number().optional(), disk: z.number().optional() });
 type M = z.infer<typeof Machine>;
 
 const STRIPS: Record<string, string> = { idle: idlePng, work: workPng, think: thinkPng, sad: sadPng, sleep: sleepPng, read: readPng };
@@ -82,8 +82,24 @@ function Island({ m }: { m: M }) {
       <canvas ref={ref} width={CW} height={CH} className="w-full max-w-64" style={{ imageRendering: "pixelated", aspectRatio: `${CW}/${CH}`, filter: "drop-shadow(6px 10px 6px rgba(0,0,0,.45))" }} />
       {extra > 0 && <span className="absolute right-2 top-2 bg-[#6b4a2a] px-1.5 text-xs font-bold text-[#f4e6c0]">+{extra}</span>}
       <figcaption className={`text-xs ${m.up ? "text-bk-fg" : "text-bk-muted line-through"}`}>{m.name}</figcaption>
+      {m.up && <Bars m={m} />}
+      {m.jobs.some((j) => j.say) && <ul className="w-full max-w-64 space-y-0.5 text-[11px] leading-tight text-bk-muted">
+        {m.jobs.filter((j) => j.say).slice(0, 4).map((j) => <li key={j.id} className="truncate" title={j.say}>{MOOD_DOT[j.mood]} {j.say}</li>)}</ul>}
     </figure>
   );
+}
+
+const MOOD_DOT: Record<string, string> = { idle: "○", work: "●", think: "◐", sad: "✕", sleep: "☾", read: "▤" };
+/** Old Beacon's per-island health bars: CPU / MEM / DISK (% with 60-85, 70-90, 80-90 warn/bad), TEMP in degrees. */
+function Bars({ m }: { m: M }) {
+  const R: [string, number | undefined, number, number, string][] = [["CPU", m.cpu, 60, 85, "%"], ["MEM", m.mem, 70, 90, "%"], ["DSK", m.disk, 80, 90, "%"], ["TMP", m.temp, 65, 80, "°"]];
+  const rows = R.filter((r) => r[1] != null) as [string, number, number, number, string][];
+  if (!rows.length) return null;
+  return <div className="grid w-full max-w-64 gap-0.5 text-[10px] font-semibold">{rows.map(([n, v, w, b, u]) => {
+    const col = v >= b ? "bg-bk-danger" : v >= w ? "bg-bk-warn" : "bg-bk-ok";
+    return <div key={n} className="grid grid-cols-[2.2em_1fr_2.8em] items-center gap-1"><span className="text-bk-muted">{n}</span>
+      <span className="h-1.5 rounded-full bg-bk-raise"><i className={`block h-full rounded-full ${col}`} style={{ width: `${Math.min(100, v)}%` }} /></span>
+      <span className="text-right tabular-nums">{Math.round(v)}{u}</span></div>; })}</div>;
 }
 
 export const IsoScene = defineWidget({
@@ -94,6 +110,6 @@ export const IsoScene = defineWidget({
   render: ({ options, data, state }) => {
     const ms = data?.machines ?? [];
     return <Frame title={options.label} icon="scene" state={state === "ready" && !ms.length ? "empty" : state} empty="No machines">
-      <div className="grid h-full grid-cols-[repeat(auto-fit,minmax(7rem,1fr))] items-center gap-2 overflow-auto">{ms.map((m) => <Island key={m.id} m={m} />)}</div></Frame>;
+      <div className="grid h-full grid-cols-[repeat(auto-fit,minmax(7rem,1fr))] content-center items-start gap-2 overflow-auto">{ms.map((m) => <Island key={m.id} m={m} />)}</div></Frame>;
   },
 });

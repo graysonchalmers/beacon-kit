@@ -12,8 +12,8 @@ export type VoiceSnapshot = { state: J; agenda?: J; decisions?: J; notion?: J; r
 export type Live = Record<number, { data?: unknown; state?: WidgetState }>;
 
 export async function fetchVoice(base = "", f: typeof fetch = fetch): Promise<VoiceSnapshot> {
-  const get = (p: string) => f(base + p, { cache: "no-store", signal: AbortSignal.timeout(8000) })   // one slow endpoint must not hold every card
-    .then((r) => (r.ok ? r.json() : undefined)).catch(() => undefined);
+  const get = (p: string) => { const c = new AbortController(); setTimeout(() => c.abort(), 8000); return f(base + p, { cache: "no-store", signal: c.signal })   // one slow endpoint must not hold every card
+    .then((r) => (r.ok ? r.json() : undefined)).catch(() => undefined); };
   const P = ["/state", "/agenda", "/decisions", "/notion", "/replies", "/docs", "/sysscope", "/mesh", "/fleet", "/projects", "/favorites", "/devstream", "/quotas", "/stealth-models"];
   const [state, agenda, decisions, notion, replies, docs, sysscope, mesh, fleet, projects, favorites, devstream, quotas, stealthModels] = await Promise.all(P.map(get));
   if (!state) throw new Error("voice.py /state unreachable");

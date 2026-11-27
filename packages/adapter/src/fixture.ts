@@ -4,12 +4,14 @@ export function fakeSnapshot(now: number): VoiceSnapshot {
   const m = (n: number) => now - n * 60, h = (n: number) => now + n * 3600;
   const w = (id: string, type: string, title: string, extra = {}) => ({ id, type, title, made: now, keep: true, front: 0, actions: [], ...extra });
   return {
-    state: { skin: { name: "swamp", v: 1, saved: [] }, layout: { name: "Main", show: [], names: [], boards: [], slots: { size: {}, widgets: ["c1", "m1", "n1", "iso1", "r1", "d1", "ss1", "fl1", "me1", "q1", "rd1", "pr1", "fv1", "ds1", "ak1"] } },
+    state: { skin: { name: "swamp", v: 1, saved: [] }, layout: { name: "Main", show: [], names: [], boards: [{ id: "main", name: "Main" }, { id: "b1", name: "Talk" }], slots: { size: {}, widgets: ["c1", "m1", "n1", "iso1", "r1", "d1", "ss1", "fl1", "me1", "q1", "rd1", "pr1", "fv1", "ds1", "ak1"] } },
       widgets: [w("c1", "calendar", "Calendar"), w("m1", "mail", "Inbox"), w("n1", "notion", "Notion Inbox"), w("iso1", "iso", "Agents & Machines"), w("r1", "replies", "Proposed replies"), w("d1", "docs", "Docs"),
         w("ss1", "sysscope", "Envy", { rows: ["weather", "temp", "claude", "queue"] }), w("fl1", "fleet", "Fleet"), w("me1", "mesh", "Mesh"), w("q1", "quotas", "Tokens and quotas"),
         w("rd1", "radar", "Radar", { at: [41.88, -87.63], style: { map: "dark", zoom: 7, hours: 1, rain: 1, clouds: 1 } }), w("pr1", "projects", "Projects", { q: "" }),
         w("fv1", "favorites", "Favorites"), w("ds1", "devstream", "DevStream"), w("ak1", "ask", "Ask Stealth", { prompt: "", model: "auto" }),
         w("t1", "tile", "Weather", { value: "41°F", caption: "Cloudy, high 44°", hist: [38, 39, 41, 43, 44, 42, 41] })],
+      alerts: [{ tier: "warn", text: "Legion: disk C: is 85% full" }, { tier: "warn", text: "Moby unreachable over Tailscale" }],
+      notes: [{ t: now - 600, text: "Backup finished", read: false }, { t: now - 3600, text: "Stealth GPU free", read: true }],
       iso: { hosts: { legion: { state: "working", cpu: 38, disk: 61, mem: 84, temp: 71, jobs: [{ name: "ssh session", state: "working", say: "Claude session" }, { name: "HardwareWatch", state: "reading" }] },
         envy: { state: "idle", cpu: 12, disk: 48, mem: 40, temp: 52, jobs: [{ name: "voice.py", state: "thinking" }, { name: "skills-sync", state: "sleeping" }] },
         stealth: { state: "idle", mem: 43, temp: 45, jobs: [] }, moby: { state: "offline" } } } },

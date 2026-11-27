@@ -40,7 +40,8 @@ const FR = windowJson.frames as Record<string, { frame: { x: number; y: number; 
 function draw(c: CanvasRenderingContext2D, m: M, t: number) {
   const { atlas, frogs } = load(); c.imageSmoothingEnabled = false; c.clearRect(0, 0, CW, CH);
   if (!ready(atlas)) return;
-  const map = groundMap(m.mem, m.id), cells: [number, number, string][] = [];
+  const dock = m.id === "stealth";   // view.html: Stealth's island has water on its front and right edges, with a boardwalk
+  const map = groundMap(m.mem, m.id).map((r, cy) => [...r].map((tt, cx) => (dock && (cy === 3 || (cx === 3 && cy >= 1)) ? "W" : tt)).join("")), cells: [number, number, string][] = [];
   map.forEach((r, cy) => [...r].forEach((tt, cx) => cells.push([cx, cy, tt]))); cells.sort((a, b) => a[0] + a[1] - b[0] - b[1]);
   const face = (pts: number[][], col: string) => { c.fillStyle = col; c.beginPath(); pts.forEach(([x, y], i) => i ? c.lineTo(x, y) : c.moveTo(x, y)); c.fill(); };
   if (!m.up) c.globalAlpha = .45;
@@ -53,8 +54,16 @@ function draw(c: CanvasRenderingContext2D, m: M, t: number) {
   const prop = (name: string, cx: number, cy: number, lit?: string) => { const f = FR[name].frame, [x, y0] = iso(cx, cy), px = x + 16 - Math.round(f.w / 2), py = y0 - lift(cx, cy) + 10 - f.h;
     c.drawImage(atlas, f.x, f.y, f.w, f.h, px, py, f.w, f.h); if (lit) { c.fillStyle = lit; c.fillRect(px + 6, py + 7, 2, 3); } };
   prop("p_lantern_post", 0, 0, m.up ? lampColor(m.temp) : "#555"); prop("p_stump", 3, 0);
+  if (dock) { prop("p_boardwalk", 3, 2); prop("p_lily_pads", 1, 3); }
+  // campfire on the stump: flame height follows CPU (old Beacon: busier box, bigger fire); out when asleep or down
+  if (m.up && !m.asleep && (m.cpu ?? 0) > 0) {
+    const [sx, sy0] = iso(3, 0), bx = sx + 16, by = sy0 - lift(3, 0) + 1, h = 3 + Math.round(Math.min(100, m.cpu!) / 100 * 7);
+    for (let i = 0; i < 5; i++) { const dx = i - 2, fl = Math.max(1, h - Math.abs(dx) * 2 + Math.round(Math.sin(t / 90 + i * 1.7) * 1.5));
+      c.fillStyle = "#ff6a1a"; c.fillRect(bx + dx - 1, by - fl, 1, fl); c.fillStyle = "#ffd23a"; if (fl > 2) c.fillRect(bx + dx - 1, by - fl + 2, 1, Math.max(1, fl - 3)); }
+  }
   // frogs, back to front
-  m.jobs.slice(0, MOST).map((j, i) => ({ j, s: SLOTS[i] })).sort((a, b) => a.s[0] + a.s[1] - b.s[0] - b.s[1]).forEach(({ j, s }, k) => {
+  const slots = dock ? SLOTS.filter(([x, y]) => !(y === 3 || (x === 3 && y >= 1))) : SLOTS;
+  m.jobs.slice(0, slots.length).map((j, i) => ({ j, s: slots[i] })).sort((a, b) => a.s[0] + a.s[1] - b.s[0] - b.s[1]).forEach(({ j, s }, k) => {
     const sh = frogs[j.mood] ?? frogs.idle; if (!ready(sh)) return;
     const n = Math.max(1, Math.round(sh.naturalWidth / FW)), fi = m.up ? Math.floor((t / 167 + k * 3) % n) : 0;
     const [x, y0] = iso(s[0], s[1]), py = y0 - lift(s[0], s[1]) + 12 - FW;

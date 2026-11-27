@@ -77,10 +77,11 @@ export const MAP: Record<string, Map> = {
   fleet: { type: "fleet", size: [6, 4], options: (w) => ({ title: w.title || "Fleet" }),
     data: (s) => s.fleet && { machines: (s.fleet.machines ?? []).map((m: J) => ({ id: m.id, state: ["up", "down", "stale"].includes(m.state) ? m.state : "unknown", level: lvl(m.level),
         age_s: m.age_s ?? null, cpu: m.cpu ?? null, mem: m.mem ?? null, checks_down: (m.checks_down ?? []).map(String),
+        gpu: m.gpu && typeof m.gpu.util === "number" ? { util: m.gpu.util, vram_used_gb: +m.gpu.vram_used_gb || 0, vram_total_gb: +m.gpu.vram_total_gb || 0, temp: +m.gpu.temp || 0 } : undefined,
         disk: typeof m.disk?.free_gb === "number" && typeof m.disk?.pct === "number" ? { mount: String(m.disk.mount ?? "/"), free_gb: m.disk.free_gb, pct: m.disk.pct } : undefined })),
       lease: s.fleet.lease && { known: !!s.fleet.lease.known, free: s.fleet.lease.free ?? undefined, holder: s.fleet.lease.holder ?? undefined, queue: s.fleet.lease.queue ?? undefined,
         mins: typeof s.fleet.lease.age_s === "number" ? Math.round(s.fleet.lease.age_s / 60) : undefined },
-      power: s.fleet.power?.ready && { ready: s.fleet.power.ready, why: s.fleet.power.why ?? undefined, idle: s.fleet.power.idle ?? [] } } },
+      power: s.fleet.power?.ready && { ready: s.fleet.power.ready, why: s.fleet.power.why ?? undefined, idle: ["stealth"] } } },   // fleet.js: Stealth always gets the "when idle" pair (queued on the GPU lease)
   radar: { type: "radar", size: [4, 4], options: (w) => ({ label: w.title || "Radar", zoom: Math.min(9, Math.max(5, w.style?.zoom ?? 7)) }),
     data: (_s, w, now) => radarLayers(w, now) },
   devstream: { type: "devstream", size: [6, 4], options: (w) => ({ label: w.title || "DevStream" }),
@@ -154,4 +155,16 @@ export function voiceActions(base = "", post: typeof fetch = fetch) {
     if (action === "inbox" && i !== undefined) return send("/decision", { id: "n:" + id, choice: i });
     return false;   // unknown action: refuse, so the card shows "Didn't go through" instead of a fake success
   };
+}
+
+/** /state -> TopBar props (old view.html header): tabs from layout.boards (Main first), voice mode, alerts, bell notes. */
+export function toTopBar(st: J, now = Date.now() / 1000) {
+  const boards: J[] = st.layout?.boards ?? [];
+  const tabs = [{ id: "main", name: "Main" }, ...boards.filter((b) => b && b.id !== "main").map((b) => ({ id: String(b.id), name: String(b.name ?? b.id) }))];
+  const f = st.follow && st.follow.until > now;
+  const voice = st.state === "awake" ? "awake" : st.state === "thinking" ? "thinking" : st.state === "speaking" ? "speaking" : f ? "follow" : st.state ? "wait" : "off";
+  const alerts = (st.alerts ?? []).filter((a: J) => a && a.text).map((a: J) => ({ tier: a.tier ? String(a.tier) : undefined, text: String(a.text) }));
+  const notes = (st.notes ?? []).filter((n: J) => n && (n.text || n.say)).map((n: J) => ({ text: String(n.text ?? n.say), read: !!n.read,
+    at: typeof n.t === "number" ? new Date(n.t * 1000).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }) : undefined }));
+  return { tabs, current: "main", voice: voice as "wait", alerts, notes };
 }

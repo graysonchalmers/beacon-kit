@@ -8,3 +8,6 @@
 }
 body { background: var(--bk-bg); color: var(--bk-fg); font-family: var(--bk-font); }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+
+/* TopBar alert ticker: scrolls a long alert right to left */
+@keyframes bk-tick { 0%, 15% { transform: translateX(0); } 100% { transform: translateX(-60%); } }

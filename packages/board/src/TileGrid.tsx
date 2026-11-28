@@ -58,6 +58,9 @@ export function TileGrid({ items, gap = 12, minCell = 76 }: { items: { key: stri
   }, []);
   const cols = colsFor(w || 1024, minCell, gap), cell = w ? (w - (cols - 1) * gap) / cols : minCell;
   // Fit to content: after a layout, any card whose content is taller than its tile gets extra rows (once per column count).
+  const [big, setBig] = useState<string | null>(null);
+  useLayoutEffect(() => { if (!big) return; const k = (e: KeyboardEvent) => e.key === "Escape" && setBig(null); addEventListener("keydown", k); return () => removeEventListener("keydown", k); }, [big]);
+  const bigNode = big ? items.find((i) => i.key === big)?.node : null;
   const [extra, setExtra] = useState<{ cols: number; rows: Record<string, number> }>({ cols: 0, rows: {} });
   useLayoutEffect(() => {
     const el = ref.current; if (!el || !w || extra.cols === cols) return;
@@ -74,7 +77,11 @@ export function TileGrid({ items, gap = 12, minCell = 76 }: { items: { key: stri
     }, 1500);   // let data and images settle first
     return () => clearTimeout(t);
   }, [w, cols, cell, gap, extra.cols, items.length]);
-  return (
+  return (<>
+    {bigNode && <div role="dialog" aria-modal="true" aria-label="Card, large" onClick={(e) => e.target === e.currentTarget && setBig(null)}
+      className="fixed inset-0 z-50 grid place-items-center bg-black/60 p-3 backdrop-blur-sm sm:p-8">
+      <div className="relative h-full max-h-[56rem] w-full max-w-5xl">{bigNode}
+        <button type="button" onClick={() => setBig(null)} title="Close (Esc)" aria-label="Close" className="absolute right-2 top-2 z-10 grid size-8 place-items-center rounded-md border border-bk-line bg-bk-card text-bk-fg">✕</button></div></div>}
     <div ref={ref} data-cols={cols} className="grid w-full"
       style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`, gridAutoRows: `${cell}px`, gridAutoFlow: "row dense", gap }}>
       {(() => {
@@ -87,8 +94,10 @@ export function TileGrid({ items, gap = 12, minCell = 76 }: { items: { key: stri
         });
         const placed = pack(sizes, cols);
         return items.map(({ key, tile, node }, k) => { const p = placed[k];
-          return <div key={key} data-key={key} data-tile={tile} className="relative min-w-0" style={{ gridColumn: `${p.x + 1} / span ${p.w}`, gridRow: `${p.y + 1} / span ${p.h}` }}>{node}</div>; });
+          return <div key={key} data-key={key} data-tile={tile} className="group relative min-w-0" style={{ gridColumn: `${p.x + 1} / span ${p.w}`, gridRow: `${p.y + 1} / span ${p.h}` }}>{node}
+            <button type="button" onClick={() => setBig(key)} title="Open this card large" aria-label="Open this card large"
+              className="absolute bottom-2 right-2 z-10 grid size-7 place-items-center rounded-md border border-bk-line bg-bk-card text-sm text-bk-muted opacity-0 transition-opacity hover:text-bk-fg focus-visible:opacity-100 group-hover:opacity-90 [@media(hover:none)]:opacity-60">⤢</button></div>; });
       })()}
-    </div>
+    </div></>
   );
 }

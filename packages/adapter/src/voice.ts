@@ -160,7 +160,8 @@ export function voiceActions(base = "", post: typeof fetch = fetch) {
 /** /state -> TopBar props (old view.html header): tabs from layout.boards (Main first), voice mode, alerts, bell notes. */
 export function toTopBar(st: J, now = Date.now() / 1000) {
   const boards: J[] = st.layout?.boards ?? [];
-  const tabs = [{ id: "main", name: "Main" }, ...boards.filter((b) => b && b.id !== "main").map((b) => ({ id: String(b.id), name: String(b.name ?? b.id) }))];
+  const tabs = [{ id: "main", name: "Main" }, ...boards.filter((b) => b && b.id !== "main").map((b) => ({ id: String(b.id), name: String(b.name ?? b.id) })),
+    { id: "sandbox", name: "Sandbox" }, { id: "archive", name: "Archive" }];   // view.html: Main, his boards, then Sandbox and Archive
   const f = st.follow && st.follow.until > now;
   const voice = st.state === "awake" ? "awake" : st.state === "thinking" ? "thinking" : st.state === "speaking" ? "speaking" : f ? "follow" : st.state ? "wait" : "off";
   const alerts = (st.alerts ?? []).filter((a: J) => a && a.text).map((a: J) => ({ tier: a.tier ? String(a.tier) : undefined, text: String(a.text) }));

@@ -92,7 +92,7 @@ function InboxRow({ r, g, now, onDone }: { r: RowT; g: G; now: number; onDone: (
           {gr && <details className="rounded-md border-l-[3px] border-bk-muted bg-[color-mix(in_srgb,var(--bk-muted)_10%,transparent)] px-2 py-1 text-[12.5px] leading-snug text-bk-muted">
             <summary className="cursor-pointer truncate" title="The nightly groomer's proposal (nothing was changed)">{groomChip(r.groomer, now)}</summary><div className="mt-1">{gr}</div></details>}
         </div>)}
-      {g === "you" && r.options.length > 0 && <div className="flex basis-full flex-wrap gap-1 pl-0.5"><OptionButtons small opts={r.options} picked={a.picked} onPick={a.pick} tap={a.tap} /></div>}
+      {g === "you" && r.options.length > 0 && <div className="grid basis-full grid-cols-2 gap-1 pl-0.5 [&>button]:max-w-none"><OptionButtons small opts={r.options} picked={a.picked} onPick={a.pick} tap={a.tap} /></div>}
       {a.fail}
     </div>
   );
